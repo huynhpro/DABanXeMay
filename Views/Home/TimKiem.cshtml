@@ -1,0 +1,53 @@
+﻿@model PagedList.IPagedList<ShopXeMay.Models.SanPham>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "TimKiem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string tenSP = ViewBag.sanpham;
+    var listSP = new ShopXeMay.Models.mapSanPham().TimKiem(tenSP, 0);
+}
+<link href="~/Theme/css/cssPageList.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="row align-items-center product-slider product-slider-5" style="min-height:350px; width:990px;">
+    @foreach (var item in Model)
+    {
+        <div class="col-auto" style="width: 330px; height: 320px; margin-top: 0;">
+            <div class="product-item" style="width: 300px;">
+                <div class="product-title" style="width: 300px;">
+                    <a href="#">@item.TenSanPham</a>
+                    @*<div class="ratting">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>*@
+                </div>
+                <div class="product-image" style="width: 300px;">
+                    <a href="product-detail.html">
+                        <img class="anhsanpham" src="~/Content/Upload/Image/@item.AnhSP" alt="Product Image">
+                    </a>
+                    <div class="product-action" style="width: 300px;">
+                        <a href="@Url.Action("ThemGioHang", "GioHang", new {@idSanPham = item.ID, @strURL = Request.Url.ToString() })"><i class="fa fa-cart-plus"></i></a>
+                        <a href="#"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+                <div class="product-price" style="width: 300px;">
+                    <h3><span></span>@string.Format("{0:#,0}", item.GiaBan) đ</h3>
+                    <a class="btn" href="/SanPhams/Details?id=@item.ID"><i class="fa fa-shopping-cart"></i>Mua</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<div class="col-md-m" style="width:200px; margin: 15px auto;">
+    <h5 class="col-md-m" style="width:150px; margin: 0 auto;">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</h5>
+
+    @Html.PagedListPager(Model, page => Url.Action("TimKiem",
+        new { page }))
+</div>
+<br />
+
+
+

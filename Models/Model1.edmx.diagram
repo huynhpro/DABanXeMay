@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dee4e25d005e4bcebc21ead98797ee1b" Name="Diagram1">
+        <EntityTypeShape EntityType="BanXeMayModel.Comment" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.DonHang" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.GiamGia" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.GiaoHang" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.HangSX" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.HinhThucThanhToan" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.LoaiSP" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.PhanQuyen" Width="1.5" PointX="1.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.SanPham" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.SanPham_DatHang" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanXeMayModel.TaiKhoan" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <AssociationConnector Association="BanXeMayModel.FK_Comment_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_Comment_TaiKhoan" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_DonHang_GiaoHang" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_DonHang_HinhThucThanhToan" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_DonHang_TaiKhoan" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_SanPham_DatHang_DonHang1" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_SanPham_GiamGia" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_SanPham_HangSX" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_SanPham_LoaiSP" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_TaiKhoan_PhanQuyen" ManuallyRouted="false" />
+        <AssociationConnector Association="BanXeMayModel.FK_SanPham_DatHang_SanPham" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

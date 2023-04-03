@@ -1,0 +1,54 @@
+﻿@model ShopXeMay.Models.TaiKhoan
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li><a href="~/Home/Index">Trang Chủ</a></li>
+                                <li class="active" aria-current="page">Đăng Nhập</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+<!-- ...:::: End Customer Login Section :::... -->
+<div class="col-md-6" style="margin:auto;">
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "Login" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="default-form-box">
+            <label for="TenDangNhap" class="form-label">Tên Đăng Nhập</label>
+            <input id="TenDangNhap" name="TenDangNhap" type="email" placeholder="VD: email@domain.com" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <div class="default-form-box">
+            <label for="MatKhau" class="form-label">Mật khẩu</label>
+            <input id="MatKhau" name="MatKhau" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <div class="default-form-box">
+            <input type="submit" name="submit" class="btn btn-md btn-black-default-hover mb-4" style="width:200px;" value="Đăng Nhập" />
+        </div>
+        <div class="default-form-box">
+            <a href="~/Home/Facebook" class="btn btn-facebook" style="background-color: #1877f2; color:whitesmoke; width:220px;">Đăng Nhập Facebook</a>
+            @*@Html.ActionLink("Login with facebook", "Facebook", "Home")*@
+            @*<table>
+                    <tr><td>Email:</td><td><b>@TempData["email"]</b></td></tr>
+                    <tr><td>Full Name:</td><td><b>@TempData["lastname"] @TempData["first_name"]</b></td></tr>
+                    <tr><td>Picture:</td><td><b><img src="@TempData["picture"]" /></b></td></tr>
+                </table>*@
+
+        </div>
+    }
+</div>
