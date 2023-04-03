@@ -74,6 +74,10 @@ namespace ShopXeMay.Controllers
             ViewBag.sdt = "0777777777";
             return View();
         }
+        public ActionResult BaiViet()
+        {
+            return View();
+        }
         //GET: Register
 
         public ActionResult Register()
