@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ShopXeMay</RootNamespace>
     <AssemblyName>ShopXeMay</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -70,11 +72,8 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -119,6 +118,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -259,12 +259,9 @@
     <Content Include="assets\images\banner\login.jpg" />
     <Content Include="assets\images\banner\menu-banner.jpg" />
     <Content Include="assets\images\banner\side-banner.jpg" />
-    <Content Include="assets\images\blog\blog-grid-home-1-img-1.jpg" />
-    <Content Include="assets\images\blog\blog-grid-home-1-img-2.jpg" />
-    <Content Include="assets\images\blog\blog-grid-home-1-img-3.jpg" />
-    <Content Include="assets\images\blog\blog-grid-home-1-img-4.jpg" />
-    <Content Include="assets\images\blog\blog-grid-home-1-img-5.jpg" />
-    <Content Include="assets\images\blog\blog-grid-home-1-img-6.jpg" />
+    <Content Include="assets\images\blog\blog2.jpg" />
+    <Content Include="assets\images\blog\blog1.jpg" />
+    <Content Include="assets\images\blog\blog3.jpg" />
     <Content Include="assets\images\company-logo\company-logo-1.png" />
     <Content Include="assets\images\company-logo\company-logo-2.png" />
     <Content Include="assets\images\company-logo\company-logo-3.png" />
@@ -483,6 +480,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\SanPhams\DanhSach.cshtml" />
     <Content Include="Views\SanPhams\Details.cshtml" />
+    <Content Include="Views\Home\Baiviet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

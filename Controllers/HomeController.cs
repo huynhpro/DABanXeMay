@@ -274,5 +274,10 @@ namespace ShopXeMay.Controllers
         {
             return View();
         }
+
+        public ActionResult Baiviet()
+        {
+            return View();
+        }
     }
 }
