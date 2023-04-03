@@ -270,6 +270,14 @@
     <Content Include="assets\images\company-logo\company-logo-6.png" />
     <Content Include="assets\images\company-logo\company-logo-7.png" />
     <Content Include="assets\images\company-logo\company-logo-8.png" />
+    <Content Include="assets\images\company-logo\logo2.jpg" />
+    <Content Include="assets\images\company-logo\logo3.jpg" />
+    <Content Include="assets\images\company-logo\logo4.jpg" />
+    <Content Include="assets\images\company-logo\logo5.jpg" />
+    <Content Include="assets\images\company-logo\logo6.jpg" />
+    <Content Include="assets\images\company-logo\logo7.jpg" />
+    <Content Include="assets\images\company-logo\logo8.jpg" />
+    <Content Include="assets\images\company-logo\logo9.jpg" />
     <Content Include="assets\images\company-logo\payment.png" />
     <Content Include="assets\images\emprt-cart\empty-cart.png" />
     <Content Include="assets\images\favicon.ico" />
