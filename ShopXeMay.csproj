@@ -483,10 +483,11 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\SanPhams\DanhSach.cshtml" />
     <Content Include="Views\SanPhams\Details.cshtml" />
+    <Content Include="Views\Home\BaiViet.cshtml" />
+    <Content Include="Views\GioHang\GioHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\GioHang\" />
     <Folder Include="Views\SanPham\" />
   </ItemGroup>
   <ItemGroup>
