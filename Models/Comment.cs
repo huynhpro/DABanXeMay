@@ -18,7 +18,7 @@ namespace ShopXeMay.Models
         public int idSanPham { get; set; }
         public string BinhLuan { get; set; }
     
-        public virtual SanPham SanPham { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
+        public virtual SanPham SanPham { get; set; }
     }
 }

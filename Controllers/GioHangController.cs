@@ -64,6 +64,16 @@ namespace ShopXeMay.Controllers
             }
             return tongTien;
         }
+        private decimal? TongTienSauKhuyenMai()
+        {
+            decimal? tongTien = 0;
+            List<Giohang> lstGioHang = Session["Giohang"] as List<Giohang>;
+            if (lstGioHang != null)
+            {
+                tongTien = lstGioHang.Sum(n => n.thanhTien) + 150000;
+            }
+            return tongTien;
+        }
         //xem danh sách giỏ hàng
         public ActionResult GioHang()
         {
@@ -74,13 +84,21 @@ namespace ShopXeMay.Controllers
             }
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();
+            ViewBag.Tongtiensaukhuyenmai = TongTienSauKhuyenMai();
             return View(lstGioHang);
         }
         public ActionResult GioHangPartial()
         {
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();
-            return PartialView();
+            return PartialView("GioHangPartial");
+        }
+        public ActionResult CartPartial()
+        {
+            List<Giohang> lstGioHang = LayGioHang();
+            ViewBag.Tongsoluong = TongSoLuong();
+            ViewBag.Tongtien = TongTien();
+            return PartialView("CartPartial", lstGioHang);
         }
         public ActionResult XoaGioHang(int idSanPham)
         {
@@ -129,6 +147,7 @@ namespace ShopXeMay.Controllers
             List<Giohang> lstGioHang = LayGioHang();
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();
+            ViewBag.Tongtiensaukhuyenmai = TongTienSauKhuyenMai();
             return View(lstGioHang);
         }
         public ActionResult DatHang(FormCollection collection, string payment)
@@ -148,6 +167,7 @@ namespace ShopXeMay.Controllers
             dh.DiaChiGiao = diachigiao;
             dh.TrangThaiGiaoHang = 1;
             dh.DaThanhToan = false;
+            
             if (payment == "online")
             {
                 dh.idHinhThucThanhToan = 2;
@@ -156,7 +176,7 @@ namespace ShopXeMay.Controllers
             {
                 dh.idHinhThucThanhToan = 1;
             }
-            dh.TongTien = TongTien();
+            dh.TongTien = TongTienSauKhuyenMai();
             db.DonHang.Add(dh);
             db.SaveChanges();
 
@@ -192,9 +212,9 @@ namespace ShopXeMay.Controllers
             string partnerCode = "MOMOOJOI20210710";
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
-            string orderInfo = Session["TenNguoiDung"] + " Đặt hàng với số tiền" + dh.TongTien.ToString();
-            string returnUrl = "https://localhost:44367/GioHang/ConfirmPaymentClient";
-            string notifyurl = "https://83d2-101-99-32-135.ap.ngrok.io/GioHang/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string orderInfo = Session["TenNguoiDung"] + " Đặt hàng với số tiền" +" " + string.Format("0:0,0 đ", dh.TongTien.ToString());
+            string returnUrl = "https://localhost:44351/GioHang/ConfirmPaymentClient";
+            string notifyurl = "https://9dc2-113-161-73-78.ap.ngrok.io/GioHang/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
             var tienthanhtoan = "1000";
             string amount = tienthanhtoan.ToString();
             string orderid = order.ToString();
@@ -258,57 +278,5 @@ namespace ShopXeMay.Controllers
 
             return View();
         }
-        //public ActionResult ReturnUrl()
-        //{
-        //    string param = Request.QueryString.ToString().Substring(0, Request.QueryString.ToString().IndexOf("signature") - 1);
-        //    param = Server.UrlDecode(param);
-        //    MoMoSecurity crypto = new MoMoSecurity();
-        //    string serectkey = ConfigurationManager.AppSettings["serectkey"].ToString();
-        //    string signature = crypto.signSHA256(param, serectkey);
-        //    if (signature != Request["signature"].ToString())
-        //    {
-        //        ViewBag.message = "Thông tin Request không hợp lệ";
-        //        return View();
-        //    }
-        //    if (!Request.QueryString["errorCode"].Equals("0"))
-        //    {
-        //        ViewBag.message = "Thanh Toán Thất Bại";
-
-        //    }
-        //    else
-        //    {
-        //        ViewBag.message = "Thanh Toán Thành Công";
-        //        Session["Giohang"] = new List<Giohang>();
-        //    }
-        //    return View();
-        //}
-        //public JsonResult NotifyUrl()
-        //{
-        //    string param = "";
-        //    param = "partner_code=" + Request["partner_code"] +
-        //             "&access_keys=" + Request["access_keys"] +
-        //             "&amount=" + Request["amount"] +
-        //             "&orderid=" + Request["orderid"] +
-        //             "&order_info=" + Request["order_info"] +
-        //             "&order_type=" + Request["order_type"] +
-        //             "&transaction_id=" + Request["transaction_id"] +
-        //             "&message=" + Request["message"] +
-        //             "&response_time=" + Request["response_time"] +
-        //             "&status_code=" + Request["status_code"];
-        //    param = Server.UrlDecode(param);
-        //    MoMoSecurity crypto = new MoMoSecurity();
-        //    string serectkey = ConfigurationManager.AppSettings["serectkey"].ToString();
-        //    string signature = crypto.signSHA256(param, serectkey);
-        //    if (signature != Request["signature"].ToString())
-        //    {
-
-        //    }
-        //    string status_code = Request["status_code"].ToString();
-        //    if (status_code != "0")
-        //    {
-
-        //    }
-        //    return Json("", JsonRequestBehavior.AllowGet);
-        //}
     }
 }

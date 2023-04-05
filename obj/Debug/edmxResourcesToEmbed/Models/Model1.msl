@@ -75,23 +75,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SanPham">
-      <EntityTypeMapping TypeName="BanXeMayModel.SanPham">
-        <MappingFragment StoreEntitySet="SanPham">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
-          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-          <ScalarProperty Name="NgayNhap" ColumnName="NgayNhap" />
-          <ScalarProperty Name="ConHang" ColumnName="ConHang" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="BaiViet" ColumnName="BaiViet" />
-          <ScalarProperty Name="IDLoaiSP" ColumnName="IDLoaiSP" />
-          <ScalarProperty Name="AnhSP" ColumnName="AnhSP" />
-          <ScalarProperty Name="IdHangSX" ColumnName="IdHangSX" />
-          <ScalarProperty Name="idGiamGia" ColumnName="idGiamGia" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="SanPham_DatHang">
       <EntityTypeMapping TypeName="BanXeMayModel.SanPham_DatHang">
         <MappingFragment StoreEntitySet="SanPham_DatHang">
@@ -112,6 +95,32 @@
           <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
           <ScalarProperty Name="TenNguoiDung" ColumnName="TenNguoiDung" />
           <ScalarProperty Name="idPhanQuyen" ColumnName="idPhanQuyen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnhXe">
+      <EntityTypeMapping TypeName="BanXeMayModel.AnhXe">
+        <MappingFragment StoreEntitySet="AnhXe">
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="Anh" ColumnName="Anh" />
+          <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
+          <ScalarProperty Name="idAnh" ColumnName="idAnh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SanPham">
+      <EntityTypeMapping TypeName="BanXeMayModel.SanPham">
+        <MappingFragment StoreEntitySet="SanPham">
+          <ScalarProperty Name="idGiamGia" ColumnName="idGiamGia" />
+          <ScalarProperty Name="IdHangSX" ColumnName="IdHangSX" />
+          <ScalarProperty Name="IDLoaiSP" ColumnName="IDLoaiSP" />
+          <ScalarProperty Name="BaiViet" ColumnName="BaiViet" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="ConHang" ColumnName="ConHang" />
+          <ScalarProperty Name="NgayNhap" ColumnName="NgayNhap" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

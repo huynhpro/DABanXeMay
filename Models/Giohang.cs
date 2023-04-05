@@ -23,8 +23,9 @@ namespace ShopXeMay.Models
         {
             idSanPham = ID;
             SanPham sanpham = db.SanPham.Single(n => n.ID == idSanPham);
+            AnhXe ax = db.AnhXe.Single(n => n.idSanPham == idSanPham && n.IsDefault == true);
             TenSanPham = sanpham.TenSanPham;
-            AnhSP = sanpham.AnhSP;
+            AnhSP = ax.Anh;
             GiaTien = sanpham.GiaBan;
             giamgia = sanpham.GiamGia.PhanTramGiam;
             soluong = 1;

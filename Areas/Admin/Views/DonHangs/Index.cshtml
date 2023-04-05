@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ShopXeMay.Models.DonHang>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h3 style="font-weight:bold;margin-left:10px;">Danh Sách Đơn Hàng</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DaThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayDat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayGiao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChiGiao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaoHang.TenTrangThai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HinhThucThanhToan.TenHinhThuc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaiKhoan.TenDangNhap)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DaThanhToan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayDat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayGiao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaChiGiao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiaoHang.TenTrangThai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HinhThucThanhToan.TenHinhThuc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaiKhoan.TenDangNhap)
+        </td>
+        <td>
+            <a class="btn btn-sm btn-primary" href="~/Admin/DonHangs/Edit?id=@item.ID_DonHang">Cập Nhật</a>
+            <a class="btn btn-sm btn-danger" href="~/Admin/DonHangs/Delete?id=@item.ID_DonHang">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>

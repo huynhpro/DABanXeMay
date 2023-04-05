@@ -1,0 +1,274 @@
+﻿@using ShopXeMay.Models
+@model List<Giohang>
+
+@{
+    ViewBag.Title = "Đặt Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<!--<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title">Checkout</h3>
+                    <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li class="active" aria-current="page">Đặt Hàng</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- ...:::: End Breadcrumb Section:::... -->
+<!-- ...:::: Start Checkout Section:::... -->
+<!--<div class="checkout-section">
+    <div class="container">-->
+<!-- Start User Details Checkout Form -->
+<!--<div class="checkout_form" data-aos="fade-up" data-aos-delay="400">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <form action="~/GioHang/DatHang">
+                <h3>THÔNG TIN ĐẶT HÀNG</h3>
+                {
+                    string a = Session["TenDangNhap"].ToString();
+                    TaiKhoan tk = new BanXeMayEntities().TaiKhoan.FirstOrDefault(m => m.TenDangNhap == a);
+                    //TaiKhoan tk = (TaiKhoan)Session["TenNguoiDung"];
+                }
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="default-form-box">
+                            <label>Email <span>*</span></label>
+                            <input type="text" value="tk.TenDangNhap" placeholder="Nhập vào email">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="default-form-box">
+                            <label>Họ Và Tên <span>*</span></label>
+                            <input type="text" value="tk.TenNguoiDung" placeholder="Nhập vào tên người dùng">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="default-form-box">
+                            <label>Địa Chỉ Giao <span>*</span></label>
+                            <input placeholder="Nhập vào địa chỉ giao hàng" type="text" name="DiaChiGiao">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="default-form-box">
+                            <label>Ngày Đặt Hàng</label>
+                            <input type="date" value="DateTime.Now.ToShortDateString()">
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="default-form-box">
+                            <label>Ngày Giao Hàng <span>*</span></label>
+                            <input type="date" name="NgayGiao" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="default-form-box">
+                            <label>Số Điện Thoại<span>*</span></label>
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="payment_method">
+                    <div>Hình Thức Thanh Toán: </div>
+                    <div class="radio" style="font-weight:bold">
+                        <label><input type="radio" id="payment" name="payment" value="offline" checked>Thanh Toán Khi Nhận Hàng</label>
+                        <span class="radio">
+                            <label>
+                                <input type="radio" id="payment" name="payment" value="online"><img src="~/Content/Upload/Image/iconmomo.jpg" />
+                                MOMO
+                            </label>
+
+                        </span>
+                    </div>
+                    <div class="radio">
+                    </div>
+                    <div class="order_button pt-3">
+                        <button class="btn btn-md btn-black-default-hover" type="submit">
+                            Thanh Toán
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <form action="#">
+                <h3>Đơn Hàng</h3>
+                <div class="order_table table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản Phẩm</th>
+                                <th>Giá Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td> <strong>item.TenSanPham  x  item.soluong</strong></td>
+                                    <td style="color: red; text-transform: lowercase;"> <strong>String.Format("{0:0,0} ", item.GiaTien)đ</strong></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Tổng Tiền Trong Giỏ Hàng</th>
+                                <td style="color:red;"><strong>String.Format("{0:0,0} đ", ViewBag.Tongtien)</strong></td>
+                            </tr>
+                            <tr>
+                                <th>Phí Vận Chuyển</th>
+                                <td style="color:red;"><strong>150.000 đ</strong></td>
+                            </tr>
+                            <tr class="order_total">
+                                <th>Tổng Thanh Toán</th>
+                                <td style="color:red;"><strong>String.Format("{0:0,0} đ", ViewBag.Tongtiensaukhuyenmai)</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>-->
+<!-- Start User Details Checkout Form -->
+<!--</div>
+</div>-->
+<!-- ...:::: End Checkout Section:::... -->
+<div class="row">
+
+    @{
+        string a = Session["TenDangNhap"].ToString();
+        TaiKhoan tk = new BanXeMayEntities().TaiKhoan.FirstOrDefault(m => m.TenDangNhap == a);
+        //TaiKhoan tk = (TaiKhoan)Session["TenNguoiDung"];
+    }
+
+    <div class="col-lg-6 col-md-6">
+        <form action="#">
+            <h2 style="text-align:center">ĐƠN HÀNG</h2>
+            <div class="order_table table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sản Phẩm</th>
+                            <th>Giá Tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td> <strong>@item.TenSanPham  x  @item.soluong</strong></td>
+                                <td style="color: red; text-transform: lowercase;"> <strong>@String.Format("{0:0,0} ", item.GiaTien)đ</strong></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Tổng Tiền Trong Giỏ Hàng</th>
+                            <td style="color:red;"><strong>@String.Format("{0:0,0} đ", ViewBag.Tongtien)</strong></td>
+                        </tr>
+                        <tr>
+                            <th>Phí Vận Chuyển</th>
+                            <td style="color:red;"><strong>150.000 đ</strong></td>
+                        </tr>
+                        <tr class="order_total">
+                            <th>Tổng Thanh Toán</th>
+                            <td style="color:red;"><strong>@String.Format("{0:0,0} đ", ViewBag.Tongtiensaukhuyenmai)</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </form>
+    </div>
+    <div class="col-lg-6 col-md-6">
+
+        @using (Html.BeginForm())
+        {
+            <h2 style="text-align:center">THÔNG TIN ĐẶT HÀNG</h2>
+            <div class="order_table table-responsive">
+                <table>
+
+                    @Html.ValidationSummary(true)
+                        <tr style="height:40px;">
+                            <td>Họ Và Tên: </td>
+                            <td style="font-weight:bold">@tk.TenNguoiDung</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td>Email: </td>
+                            <td style="font-weight: bold; text-transform: lowercase;">@tk.TenDangNhap</td>
+                        </tr>
+                    <tr style="height:40px;">
+                        <td>Ngày Đặt: </td>
+                        <td id="NgayDatHang" style="font-weight:bold">@DateTime.Now.ToShortDateString()</td>
+                    </tr>
+                    <tr style="height:40px;">
+                        <td>Ngày Giao Hàng: </td>
+                        <td style="font-weight:bold">
+                            <input id="NgayGiaoHang" min="@DateTime.Now" value="@DateTime.Now" type="date" name="NgayGiao" />
+                            <p id="TB_NgayGiao" style="color:red;"></p>
+                        </td>
+                    </tr>
+                    <tr style="height:40px;">
+                        <td>Địa Chỉ Giao: </td>
+                        <td style="font-weight:bold">
+                            <input id="DiaChiGiaoHang" style="width:500px;" type="text" name="DiaChiGiao" />
+                            <p id="TB_DiaChiGiao" style="color:red;"></p>
+                        </td>
+                    </tr>
+                    <tr style="height:60px;">
+                        <td>Hình Thức Thanh Toán: </td>
+                        <td class="radio" style="font-weight:bold">
+                            <label class="btn img-hover-zoom"><input type="radio" id="payment" name="payment" value="offline" checked>Thanh Toán Khi Nhận Hàng</label>
+                            <span class="radio">
+                                <label class="btn img-hover-zoom">
+                                    <input type="radio" id="payment" name="payment" value="online">
+                                    MOMO
+                                </label>
+
+                            </span>
+                        </td>
+                        <td class="radio">
+                        </td>
+
+                    </tr>
+                    <tr style="height:40px">
+                        <td></td>
+                        <td><input id="btnDatHang" class="btn btn-md btn-black-default-hover" type="submit" value="Đặt Hàng" style="width:100px;text-align:center;font-weight:bold;"></td>
+                    </tr>
+                    @*<div class="row">
+                <div class="col-md-6 form-it">
+                    <div class="radio">
+                        <label><input type="radio" id="payment" name="payment" value="offline" checked>Thanh Toán Toán Tại Quẩy</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="payment" name="payment" value="online">Thanh Toán MoMo</label>
+                    </div>
+                </div>
+            </div>*@
+                    @*<div class="row">
+                <div class="col-md-2">
+                    <input class="submit" type="submit" value="Đặt vé">
+                </div>
+            </div>*@
+
+                </table>
+            </div> 
+        }
+    </div>
+</div>

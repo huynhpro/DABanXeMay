@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BanXeMayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AnhXe">
+    <Key>
+      <PropertyRef Name="idAnh" />
+    </Key>
+    <Property Name="idAnh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idSanPham" Type="int" />
+    <Property Name="Anh" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsDefault" Type="bit" />
+  </EntityType>
   <EntityType Name="Comment">
     <Key>
       <PropertyRef Name="idTaiKhoan" />
@@ -79,7 +88,6 @@
     <Property Name="SoLuong" Type="bigint" />
     <Property Name="BaiViet" Type="ntext" />
     <Property Name="IDLoaiSP" Type="int" />
-    <Property Name="AnhSP" Type="nvarchar" MaxLength="500" />
     <Property Name="IdHangSX" Type="int" />
     <Property Name="idGiamGia" Type="int" />
   </EntityType>
@@ -105,6 +113,18 @@
     <Property Name="TenNguoiDung" Type="nvarchar" MaxLength="500" />
     <Property Name="idPhanQuyen" Type="int" />
   </EntityType>
+  <Association Name="FK_AnhXe_SanPham">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="AnhXe" Type="Self.AnhXe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AnhXe">
+        <PropertyRef Name="idSanPham" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Comment_SanPham">
     <End Role="SanPham" Type="Self.SanPham" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -252,6 +272,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="BanXeMayModelStoreContainer">
+    <EntitySet Name="AnhXe" EntityType="Self.AnhXe" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GiamGia" EntityType="Self.GiamGia" Schema="dbo" store:Type="Tables" />
@@ -263,6 +284,10 @@
     <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SanPham_DatHang" EntityType="Self.SanPham_DatHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AnhXe_SanPham" Association="Self.FK_AnhXe_SanPham">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="AnhXe" EntitySet="AnhXe" />
+    </AssociationSet>
     <AssociationSet Name="FK_Comment_SanPham" Association="Self.FK_Comment_SanPham">
       <End Role="SanPham" EntitySet="SanPham" />
       <End Role="Comment" EntitySet="Comment" />

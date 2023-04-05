@@ -1,0 +1,17 @@
+﻿@if (Session["Id"] != null)
+{
+    <div class="main-menu menu-color--white menu-hover-color--pink" style="width:200px;">
+        <nav>
+            <ul>
+                <li class="has-dropdown" >
+                    <a href="#" >@Session["TenNguoiDung"] <i class="fa fa-angle-down"></i></a>
+                    <ul class="sub-menu">
+                        <li><a href="~/TaiKhoans/DoiMatKhau">Đổi mật khẩu</a></li>
+                        <li><a href="~/home/Logout">Đăng Xuất</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}

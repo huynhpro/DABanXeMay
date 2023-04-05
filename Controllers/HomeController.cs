@@ -48,7 +48,6 @@ namespace ShopXeMay.Controllers
             var data = map.TimKiem(TimKiem, id).ToList();
             ViewBag.TimKiem = TimKiem;
             ViewBag.Id = id;
-            ViewBag.Tongsoluong = TongSoLuong();
             // 1. Tham số int? dùng để thể hiện null và kiểu int
             // page có thể có giá trị là null và kiểu int.
 
@@ -66,6 +65,10 @@ namespace ShopXeMay.Controllers
 
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return View(sanPhams.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult Chat()
+        {
+            return View();
         }
         public ActionResult Contact()
         {
@@ -143,12 +146,12 @@ namespace ShopXeMay.Controllers
         {
 
             var f_password = GetMD5(MatKhau);
-            var data = db.TaiKhoan.Where(s => s.TenDangNhap.Equals(TenDangNhap) && s.MatKhau.Equals(f_password) && s.TinhTrang == true).ToList();
-            var data1 = db.TaiKhoan.Where(s => s.TenDangNhap.Equals(TenDangNhap) && s.MatKhau.Equals(f_password) && s.TinhTrang == true && s.idPhanQuyen == 1).ToList();
+            var data = db.TaiKhoan.Where(s => s.TenDangNhap == TenDangNhap && s.MatKhau.Equals(f_password) && s.TinhTrang == true).ToList();
+            var data1 = db.TaiKhoan.Where(s => s.TenDangNhap == TenDangNhap && s.MatKhau.Equals(f_password) && s.TinhTrang == true && s.idPhanQuyen == 1).ToList();
             if (ModelState.IsValid && data.Count() == 0)
             {
                 ViewBag.error = "Tài Khoản Đã Bị Khóa";
-                return RedirectToAction("Login", "Home");
+                return Content("Tài Khoản Bị khóa");
             }
             if (data.Count() > 0 && data1.Count == 0)
             {
@@ -164,7 +167,7 @@ namespace ShopXeMay.Controllers
                 Session["TenNguoiDung"] = data.FirstOrDefault().TenNguoiDung;
                 Session["TenDangNhap"] = data.FirstOrDefault().TenDangNhap;
                 Session["Id"] = data.FirstOrDefault().Id;
-                return RedirectToAction("Index", "HomeAdmin", new { area = "Admin" });
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             else
             {
@@ -187,17 +190,6 @@ namespace ShopXeMay.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private int TongSoLuong()
-        {
-            int tong = 0;
-            List<Giohang> lstGioHang = Session["Giohang"] as List<Giohang>;
-            if (lstGioHang != null)
-            {
-                tong = lstGioHang.Sum(n => n.soluong);
-            }
-            return tong;
         }
         private Uri RediredtUri
         {
@@ -273,10 +265,6 @@ namespace ShopXeMay.Controllers
             }
             return RedirectToAction("Index", "Home");
 
-        }
-        public ActionResult Chat()
-        {
-            return View();
         }
     }
 }

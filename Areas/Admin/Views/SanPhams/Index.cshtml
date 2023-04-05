@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ShopXeMay.Models.SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h3 style="font-weight:bold;margin-left:10px;">Danh Sách Xe</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenSanPham)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaBan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayNhap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConHang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiamGia.PhanTramGiam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HangSX.TenHangSX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiSP.TenLoai)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenSanPham)
+        </td>
+        <td>
+            @String.Format("{0:0,0} đ", item.GiaBan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayNhap)
+        </td>
+        <td>
+            @if (item.SoLuong > 0)
+            {
+                <label style="font-weight: 500;">Còn Hàng</label>
+            }
+            @if (item.SoLuong == 0)
+            {
+                <label style="color:red;font-weight:500;">Hết Hàng</label>
+            }
+            @*@Html.DisplayFor(modelItem => item.ConHang)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiamGia.PhanTramGiam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HangSX.TenHangSX)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiSP.TenLoai)
+        </td>
+        <td>
+            <a class="btn btn-sm btn-success" href="~/Admin/SanPhams/Edit?id=@item.ID">Cập Nhật</a>
+            <a class="btn btn-sm btn-info" href="~/Admin/SanPhams/Details?id=@item.ID">Chi Tiết</a>
+            <a class="btn btn-sm btn-danger" href="~/Admin/SanPhams/Delete?id=@item.ID">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>

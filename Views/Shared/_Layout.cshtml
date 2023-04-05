@@ -11,7 +11,7 @@
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <link rel="shortcut icon" href="~/assets/images/favicon.ico" type="image/png">
-
+    <link href="~/Content/chatcss.css" rel="stylesheet" />
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="~/assets/css/vendor/font-awesome.min.css">
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="~/assets/css/plugins/plugins.min.css">
     <!-- Main CSS -->
     <link rel="stylesheet" href="~/assets/css/style.css">
-
+    <!--EndChat-->
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <!-- <link rel="stylesheet" href="~/assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="~/assets/css/plugins/plugins.min.css">
@@ -96,7 +96,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="blog-single-sidebar-left.html">
+                                            <a href="~/Home/BaiViet">
                                                 Bài Viết
                                             </a>
                                         </li>
@@ -106,16 +106,8 @@
                                             <ul class="sub-menu">
                                                 <li><a href="faq.html">Hỏi Đáp</a></li>
                                                 <li><a href="404.html">Trang Báo Lỗi</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-dropdown">
-                                            <a href="#">Trang Khác <i class="fa fa-angle-down"></i></a>
-                                            <!-- Mega Menu Sub Link -->
-                                            <ul class="sub-menu">
                                                 <li><a href="~/GioHang/GioHang">Giỏ Hàng</a></li>
-                                                <li><a href="~/Home/Login">Đăng Nhập</a></li>
-                                                <li><a href="~/Home/Register">Đăng Ký</a></li>
-                                                <li><a href="~/TaiKhoan/Edit/id=?">Tài Khoản Của Tôi</a></li>
+                                                <li><a href="~/TaiKhoan/Edit/id=?">Thông Tin Tài Khoản</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -126,24 +118,31 @@
                             </div>
                             <!-- End Header Main Menu Start -->
                             <!-- Start Header Action Link -->
+
                             <ul class="header-action-link action-color--white action-hover-color--pink">
                                 <li>
-                                    <a href="#offcanvas-add-cart" class="offcanvas-toggle">
-                                        <i class="icon-bag"></i>
-                                        <span class="item-count">3</span>
-                                    </a>
+                                    @*<a href="#offcanvas-add-cart" class="offcanvas-toggle">
+                                            <i class="icon-bag"></i>
+                                            <span class="item-count">@ViewBag.Tongsoluong</span>
+                                        </a>*@
+                                    @Html.Action("GioHangPartial", "GioHang");
                                 </li>
                                 <li>
                                     <a href="#search">
                                         <i class="icon-magnifier"></i>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#offcanvas-about" class="offacnvas offside-about offcanvas-toggle">
-                                        <i class="icon-menu"></i>
-                                    </a>
-                                </li>
+                                @if (Session["Id"] == null)
+                                {
+                                    <li>
+                                        <a href="#offcanvas-about" class="offacnvas offside-about offcanvas-toggle">
+                                            <i class="icon-menu"></i>
+                                        </a>
+                                    </li>
+                                }
+
                             </ul>
+                            @Html.Partial("_PatialView_Login")
                             <!-- End Header Action Link -->
                         </div>
                     </div>
@@ -177,11 +176,13 @@
     <!-- Start Offcanvas Search Bar Section -->
     <div id="search" class="search-modal">
         <button type="button" class="close">×</button>
-        <form action="/Home/TimKiem?=@ViewBag.sanpham">
+        <form action="~/Home/TimKiem?sanpham=@ViewBag.sanpham">
             <input type="search" placeholder="Nhập vào tên xe cần tìm" />
             <button type="submit" class="btn btn-lg btn-golden">Tìm Kiếm</button>
         </form>
     </div>
+    <!-- Start Offcanvas Addcart Section -->
+
     @RenderBody()
     <!-- Start Footer Section -->
     <footer class="footer-section footer-bg section-top-gap-100">
@@ -313,6 +314,24 @@
                 </div>
             </div>
             <!-- Start Footer Bottom -->
+        </div>
+        <div class="float-right">
+            <button class="open-button" onclick="openForm()">Chat</button>
+            <div class="chat-popup" id="myForm">
+                <form class="form-container">
+                    <h3>Trò Chuyện</h3>
+
+                    <label for="msg"><b>Nội Dung Tin</b></label>
+                    <textarea placeholder="Nhập nội dung" id="message" name="message" required></textarea>
+                    <input type="button" id="sendmessage" value="Gửi" />
+                    <input type="hidden" id="displayname" value="@Session["TenNguoiDung"]" />
+                    <ul id="discussion">
+                    </ul>
+                    @*<button type="submit" class="btn">Send</button>*@
+                    <button type="button" class="btn cancel" onclick="closeForm()">Đóng</button>
+
+                </form>
+            </div>
         </div>
     </footer>
     <!-- End Footer Section -->
@@ -539,6 +558,37 @@
             </div>
         </div>
     </div> <!-- End Modal Quickview cart -->
+    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+    <script>
+        $(function () {
+            var chat = $.connection.chatHub;
+            chat.client.addNewMessageToPage = function (name, message) {
+                $('#discussion').append('<li><strong>' + htmlEncode(name)
+                    + '</strong>: ' + htmlEncode(message) + '</li>');
+            };
+            $('#message').focus();
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    chat.server.send($('#displayname').val(), $('#message').val());
+                    $('#message').val('').focus();
+                });
+            });
+        });
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
     <!-- ::::::::::::::All JS Files here :::::::::::::: -->
     <!-- Global Vendor, plugins JS -->
     <script src="~/assets/js/vendor/modernizr-3.11.2.min.js"></script>
@@ -559,7 +609,66 @@
     <script src="~/assets/js/plugins/aos.min.js"></script>
     <script src="~/assets/js/plugins/jquery.instagramFeed.js"></script>
     <script src="~/assets/js/plugins/ajax-mail.js"></script>
+    <!--Chat-->
 
+    <script type="text/javascript">
+        $("#btnSubmit").click(function () {
+            var loi = 0;
+            if ($("#TenDangNhap").val() == "") {
+                $("#TB_TenDangNhap").text("Tên đăng nhập không được bỏ trống!");
+                //không cho
+                loi++;
+            }
+            else {
+
+                $("#TB_TenDangNhap").text("");
+            }
+            if ($("#MatKhau").val() == "") {
+                $("#TB_MatKhau").text("Mật khẩu không được bỏ trống!");
+                //không cho submit
+                loi++;
+            }
+            else {
+
+                $("#TB_MatKhau").text("");
+            }
+            if (loi != 0) {
+                return false;
+            }
+        })
+    </script>
+    <script type="text/javascript">
+        $("#btnDatHang").click(function () {
+            var loi = 0;
+            var date = new Date();
+            if ($("#NgayGiaoHang").val() == "") {
+                $("#TB_NgayGiao").text("Hãy Chọn Ngày Giao Hàng!");
+                //không cho
+                loi++;
+            }
+
+            else if ($("#NgayGiaoHang").val() <= date) {
+                $("#TB_NgayGiao").text("Ngày giao hàng phải lớn hơn ngày đặt hàng!");
+                loi++;
+            }
+            else {
+
+                $("#TB_NgayGiao").text("");
+            }
+            if ($("#DiaChiGiaoHang").val() == "") {
+                $("#TB_DiaChiGiao").text("Hãy Nhâp Địa Chỉ Giao Hàng!");
+                //không cho submit
+                loi++;
+            }
+            else {
+
+                $("#TB_DiaChiGiao").text("");
+            }
+            if (loi != 0) {
+                return false;
+            }
+        })
+    </script>
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <!-- <script src="~/assets/js/vendor/vendor.min.js"></script>
     <script src="~/assets/js/plugins/plugins.min.js"></script> -->

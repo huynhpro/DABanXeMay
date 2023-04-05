@@ -38,14 +38,14 @@
                 Họ Và Tên
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.TenNguoiDung, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập tên người dùng" } })
-                    <span class="form-message"></span>
+                    @Html.ValidationMessageFor(model => model.TenNguoiDung, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="default-form-box">
                 Email
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập Email" } })
-                    <span class="form-message"></span>
+                    @Html.ValidationMessageFor(model => model.TenDangNhap, null, new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -53,14 +53,14 @@
                 Mật Khẩu
                 <div class="col-md-12">
                     <input id="MatKhau" name="MatKhau" placeholder="Nhập mật khẩu" type="password" class="form-control">
-                    <span class="form-message"></span>
+                    @Html.ValidationMessageFor(model => model.MatKhau, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="default-form-box">
                 Nhập Lại Mật Khẩu
                 <div class="col-md-12">
                     <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
-                    <span class="form-message"></span>
+                    @Html.ValidationMessageFor(model => model.MatKhau, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="default-form-box">

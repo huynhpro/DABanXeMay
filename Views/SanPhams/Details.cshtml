@@ -35,35 +35,29 @@
                     <!-- Start Large Image -->
                     <div class="product-large-image product-large-image-horaizontal swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="~/assets/images/product/default/home-1/default-1.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="~/assets/images/product/default/home-1/default-2.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="~/assets/images/product/default/home-1/default-3.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="~/assets/images/product/default/home-1/default-4.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="~/assets/images/product/default/home-1/default-5.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="~/assets/images/product/default/home-1/default-6.jpg" alt="">
-                            </div>
+                            @foreach (var item1 in new ShopXeMay.Models.mapAnhXe().GetAnhXeByID(Model.ID))
+                            {
+                                <div class="product-image-thumb-single swiper-slide">
+                                    <img class="img-fluid" src="~/assets/images/product/@Model.TenSanPham/@item1.Anh"
+                                         alt="">
+                                </div>
+                            }
+                      
                         </div>
                     </div>
                     <!-- End Large Image -->
+                    
                     <!-- Start Thumbnail Image -->
                     <div class="product-image-thumb product-image-thumb-horizontal swiper-container pos-relative mt-5">
                         <div class="swiper-wrapper">
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="~/assets/images/product/default/home-1/default-1.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
+                            @foreach (var item1 in new ShopXeMay.Models.mapAnhXe().GetAnhXeByID(Model.ID))
+                            {
+                                <div class="product-image-thumb-single swiper-slide">
+                                    <img class="img-fluid" src="~/assets/images/product/@Model.TenSanPham/@item1.Anh"
+                                         alt="">
+                                </div>
+                            }
+                            @*<div class="product-image-thumb-single swiper-slide">
                                 <img class="img-fluid" src="~/assets/images/product/default/home-1/default-2.jpg"
                                      alt="">
                             </div>
@@ -82,7 +76,7 @@
                             <div class="product-image-thumb-single swiper-slide">
                                 <img class="img-fluid" src="~/assets/images/product/default/home-1/default-6.jpg"
                                      alt="">
-                            </div>
+                            </div>*@
                         </div>
                         <!-- Add Arrows -->
                         <div class="gallery-thumb-arrow swiper-button-next"></div>
@@ -141,7 +135,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 <!-- End Product Details Section -->
 <!-- Start Product Content Tab Section -->
 <div class="product-details-content-tab-section section-top-gap-100">
@@ -154,7 +148,7 @@
                     <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
                         <li>
                             <a class="nav-link active" data-bs-toggle="tab" href="#description">
-                               Mô Tả
+                                Mô Tả
                             </a>
                         </li>
                         <li>
@@ -170,9 +164,9 @@
                             <div class="tab-pane active show" id="description">
                                 <div class="single-tab-content-item">
                                     <p>
-                                        Với phương châm “Tận tâm chuyên nghiệp – Nhiệt tình phục vụ khách hàng”, 
-                                        “Lợi ích của Khách hàng là lợi nhuận của cửa hàng”. 
-                                        Chúng tôi hy vọng sẽ có thể mang đến những sản phẩm và dịch vụ tốt nhất cho quý khách hàng.        
+                                        Với phương châm “Tận tâm chuyên nghiệp – Nhiệt tình phục vụ khách hàng”,
+                                        “Lợi ích của Khách hàng là lợi nhuận của cửa hàng”.
+                                        Chúng tôi hy vọng sẽ có thể mang đến những sản phẩm và dịch vụ tốt nhất cho quý khách hàng.
                                     </p>
                                     <p>
                                         Để biết thông tin chi tiết về chương trình khuyến mãi, xin vui lòng liên hệ hotline: 0867785897.
