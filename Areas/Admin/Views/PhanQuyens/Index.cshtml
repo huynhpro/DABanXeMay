@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ShopXeMay.Models.PhanQuyen>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style="font-weight:bold; margin-left: 10px;margin-bottom:3px;">Cập Nhật Chức Vụ</h4>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ChucVu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ghi_Chú)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChucVu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ghi_Chú)
+        </td>
+        <td>
+            <a class="btn btn-sm btn-success" href="~/Admin/PhanQuyens/Edit?id=@item.IDPhanQuyen">Cập Nhật</a>
+            <a class="btn btn-sm btn-info" href="~/Admin/PhanQuyens/Details?id=@item.IDPhanQuyen">Chi Tiết</a>
+            <a class="btn btn-sm btn-danger" href="~/Admin/PhanQuyens/Delete?id=@item.IDPhanQuyen">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>

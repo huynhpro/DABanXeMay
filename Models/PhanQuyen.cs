@@ -11,7 +11,8 @@ namespace ShopXeMay.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class PhanQuyen
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,9 +20,12 @@ namespace ShopXeMay.Models
         {
             this.TaiKhoan = new HashSet<TaiKhoan>();
         }
-    
+
+        [DisplayName("Chức vụ")]
         public int IDPhanQuyen { get; set; }
+        [DisplayName("Chức vụ")]
         public string ChucVu { get; set; }
+        [DisplayName("Ghi chú")]
         public string Ghi_Chú { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

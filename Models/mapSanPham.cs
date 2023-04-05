@@ -8,23 +8,23 @@ namespace ShopXeMay.Models
 {
     public class mapSanPham
     {
-        public bool CapNhatHinhAnh(int id, string v)
-        {
-            try
-            {
-                BanXeMayEntities db = new BanXeMayEntities();
-                var sanPhams = db.SanPham.Find(id);
-                sanPhams.AnhSP = v;
-                db.SaveChanges();
-                return true;
-            }
-            catch 
-            {
+        //public bool CapNhatHinhAnh(int id, string v)
+        //{
+        //    try
+        //    {
+        //        BanXeMayEntities db = new BanXeMayEntities();
+        //        var sanPhams = db.SanPham.Find(id);
+        //        sanPhams.AnhSP = v;
+        //        db.SaveChanges();
+        //        return true;
+        //    }
+        //    catch 
+        //    {
 
-                return false;
-            }
+        //        return false;
+        //    }
 
-        }
+        //}
 
         public List<SanPham> DanhSach()
         {

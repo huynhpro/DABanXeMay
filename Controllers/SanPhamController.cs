@@ -161,5 +161,74 @@ namespace ShopXeMay.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult ThemMoi()
+        {
+            return View(new SanPham());
+        }
+        [HttpPost]
+        public ActionResult ThemMoi(SanPham model)
+        {
+            //luu du liệu vào db
+            if(string.IsNullOrEmpty(model.TenSanPham) == true)
+            {
+                ModelState.AddModelError("", "Tên sản phẩm không được để trống");
+                return View(model);
+            }
+            if(model.GiaBan <= 0)
+            {
+                ModelState.AddModelError("", "Tên sản phẩm không được để trống");
+                return View(model);
+            }
+            //lưu 
+            BanXeMayEntities db = new BanXeMayEntities();
+            //Hàm thêm mới
+            db.SanPham.Add(model);
+            //Hàm lưu dữ liệu
+            db.SaveChanges();
+            if(model.ID > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Lỗi không lưu đc");
+                return View(model);
+            }
+        }
+
+        public ActionResult CapNhap(int id)
+        {
+            BanXeMayEntities db = new BanXeMayEntities();
+            var sanPhamModel = db.SanPham.Find(id);
+            return View(sanPhamModel);
+        }
+        [HttpPost]
+        public ActionResult CapNhap(SanPham model)
+        {
+            //lưu dũ liệu vao db
+            if (string.IsNullOrEmpty(model.TenSanPham) == true)
+            {
+                ModelState.AddModelError("", "Tên sản phẩm không được để trống");
+                return View(model);
+            }
+            if (model.GiaBan <= 0)
+            {
+                ModelState.AddModelError("", "Tên sản phẩm không được để trống");
+                return View(model);
+            }
+            //luu
+            BanXeMayEntities db = new BanXeMayEntities();
+            var id = db.SaveChanges();
+            if(id > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Lỗi không lưu đc");
+                return View(model);
+            }
+        }
     }
 }

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ShopXeMay.Models.TaiKhoan>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style="font-weight:bold; margin-left: 10px;margin-bottom:3px;">Quản Lý Tài Khoản</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenDangNhap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MatKhau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayDangKy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TinhTrang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenNguoiDung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhanQuyen.ChucVu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenDangNhap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MatKhau)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayDangKy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TinhTrang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenNguoiDung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhanQuyen.ChucVu)
+        </td>
+        <td>
+            <a class="btn btn-sm btn-success" href="~/Admin/taikhoans/Edit?id=@item.Id">Cập Nhật</a>
+            <a class="btn btn-sm btn-info" href="~/Admin/taikhoans/Details?id=@item.Id">Chi Tiết</a>
+            <a class="btn btn-sm btn-danger" href="~/Admin/taikhoans/Delete?id=@item.Id">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>

@@ -33,8 +33,9 @@ namespace ShopXeMay.Models
         public virtual DbSet<HinhThucThanhToan> HinhThucThanhToan { get; set; }
         public virtual DbSet<LoaiSP> LoaiSP { get; set; }
         public virtual DbSet<PhanQuyen> PhanQuyen { get; set; }
-        public virtual DbSet<SanPham> SanPham { get; set; }
         public virtual DbSet<SanPham_DatHang> SanPham_DatHang { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoan { get; set; }
+        public virtual DbSet<AnhXe> AnhXe { get; set; }
+        public virtual DbSet<SanPham> SanPham { get; set; }
     }
 }

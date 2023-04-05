@@ -1,0 +1,34 @@
+﻿@model ShopXeMay.Models.PhanQuyen
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style="font-weight:bold; margin-left: 10px;margin-bottom:3px;">Phân Quyền</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal"style="margin-left: 10px">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChucVu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChucVu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ghi_Chú)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ghi_Chú)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDPhanQuyen }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
