@@ -1,5 +1,6 @@
 ﻿using Facebook;
 using PagedList;
+using ShopXeMay.App_Start;
 using ShopXeMay.Dao;
 using ShopXeMay.Models;
 using System;
@@ -39,6 +40,7 @@ namespace ShopXeMay.Controllers
 
             var Links = db.SanPham.OrderByDescending(x => x.ID).Where(m => m.TenSanPham.ToLower().Contains(sanpham.ToLower()) == true)
                   .ToList();
+            ViewBag.Soluong = Links.Count();
             return View(Links.ToPagedList(pageNumber, pageSize));
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
         }
@@ -55,20 +57,16 @@ namespace ShopXeMay.Controllers
             if (page == null) page = 1;
             // 3. Tạo truy vấn, lưu ý phải sắp xếp theo trường nào đó, ví dụ OrderBy
             // theo BookID mới có thể phân trang.
-            var sanPhams = db.SanPham.Include(b => b.LoaiSP).Include(b => b.HangSX).OrderBy(b => b.ID);
+            var sanPhams = db.SanPham.Include(b => b.LoaiSP).Include(b => b.HangSX).OrderByDescending(b => b.ID);
             // 4. Tạo kích thước trang (pageSize) hay là số Link hiển thị trên 1 trang
             int pageSize = 8;
-
+            ViewBag.Soluong = sanPhams.Count();
             // 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn
             // nếu page = null thì lấy giá trị 1 cho biến pageNumber.
             int pageNumber = (page ?? 1);
 
             // 5. Trả về các Link được phân trang theo kích thước và số trang.
             return View(sanPhams.ToPagedList(pageNumber, pageSize));
-        }
-        public ActionResult Chat()
-        {
-            return View();
         }
         public ActionResult Contact()
         {
@@ -147,8 +145,14 @@ namespace ShopXeMay.Controllers
 
             var f_password = GetMD5(MatKhau);
             var data = db.TaiKhoan.Where(s => s.TenDangNhap == TenDangNhap && s.MatKhau.Equals(f_password) && s.TinhTrang == true).ToList();
+            var data2 = db.TaiKhoan.Where(s => s.TenDangNhap == TenDangNhap && s.MatKhau.Equals(f_password)).ToList();
             var data1 = db.TaiKhoan.Where(s => s.TenDangNhap == TenDangNhap && s.MatKhau.Equals(f_password) && s.TinhTrang == true && s.idPhanQuyen == 1).ToList();
-            if (ModelState.IsValid && data.Count() == 0)
+            if (ModelState.IsValid && data2.Count == 0)
+            {
+                ViewBag.error = "Tài khoản hoặc mật khẩu không đúng";
+                return RedirectToAction("Login", "Home");
+            }
+            if (ModelState.IsValid && data.Count() == 0 && data2.Count() > 0)
             {
                 ViewBag.error = "Tài Khoản Đã Bị Khóa";
                 return Content("Tài Khoản Bị khóa");
@@ -171,7 +175,7 @@ namespace ShopXeMay.Controllers
             }
             else
             {
-                ViewBag.error = "Login failed";
+                ViewBag.error = "Lỗi đăng nhập";
                 return RedirectToAction("Login", "Home");
             }
         }
@@ -182,6 +186,16 @@ namespace ShopXeMay.Controllers
         {
             Session.Clear();//remove session
             return RedirectToAction("Login");
+        }
+        public ActionResult ThongTinTaiKhoan()
+        {
+            int id = int.Parse(Session["Id"].ToString());
+            TaiKhoan tk = db.TaiKhoan.FirstOrDefault(m => m.Id == id);
+            ViewBag.email = tk.TenDangNhap;
+            ViewBag.ten = tk.TenNguoiDung;
+            ViewBag.ngaydangky = tk.NgayDangKy;
+            ViewBag.matkhau = GetMD5(tk.MatKhau);
+            return View(tk);
         }
         protected override void Dispose(bool disposing)
         {

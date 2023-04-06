@@ -1,15 +1,12 @@
-﻿@model IEnumerable<ShopXeMay.Models.LoaiSP>
+﻿
+@model IEnumerable<ShopXeMay.Models.LoaiSP>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Loại Xe";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<a style="margin-left:10px;" class="btn btn-primary" href="~/Admin/LoaiSPs/create">Thêm Loại Xe</a>
 <table class="table">
     <tr>
         <th>
@@ -18,17 +15,18 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenLoai)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenLoai)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-success" href="~/Admin/LoaiSPs/Edit?id=@item.Id">Cập Nhật</a>
+                <a class="btn btn-sm btn-info" href="~/Admin/LoaiSPs/Details?id=@item.Id">Chi Tiết</a>
+                <a class="btn btn-sm btn-danger" href="~/Admin/LoaiSPs/Delete?id=@item.Id">Xóa</a>
+            </td>
+        </tr>
+    }
 
 </table>

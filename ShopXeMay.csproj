@@ -153,6 +153,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdminAuthorize.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -2208,14 +2209,6 @@
     <Content Include="assets\images\blog\blog-grid-home-1-img-1.jpg" />
     <Content Include="assets\images\blog\blog-grid-home-1-img-2.jpg" />
     <Content Include="assets\images\blog\blog-grid-home-1-img-3.jpg" />
-    <Content Include="assets\images\company-logo\company-logo-1.png" />
-    <Content Include="assets\images\company-logo\company-logo-2.png" />
-    <Content Include="assets\images\company-logo\company-logo-3.png" />
-    <Content Include="assets\images\company-logo\company-logo-4.png" />
-    <Content Include="assets\images\company-logo\company-logo-5.png" />
-    <Content Include="assets\images\company-logo\company-logo-6.png" />
-    <Content Include="assets\images\company-logo\company-logo-7.png" />
-    <Content Include="assets\images\company-logo\company-logo-8.png" />
     <Content Include="assets\images\company-logo\payment.png" />
     <Content Include="assets\images\emprt-cart\empty-cart.png" />
     <Content Include="assets\images\favicon.ico" />
@@ -2350,6 +2343,7 @@
     <Content Include="assets\images\user\image-1.png" />
     <Content Include="assets\images\user\image-2.png" />
     <Content Include="assets\images\user\image-3.png" />
+    <Content Include="assets\js\addcart.js" />
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\plugins\ajax-mail.js" />
     <Content Include="assets\js\plugins\aos.min.js" />
@@ -2527,27 +2521,22 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SanPhams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\SanPhams\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\SanPhams\Details.cshtml" />
     <Content Include="Areas\Admin\Views\SanPhams\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SanPhams\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LoaiSPs\Create.cshtml" />
     <Content Include="Areas\Admin\Views\LoaiSPs\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiSPs\Details.cshtml" />
     <Content Include="Areas\Admin\Views\LoaiSPs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\LoaiSPs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoHangs\Create.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoHangs\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoHangs\Details.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoHangs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoHangs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\HinhThucThanhToans\Create.cshtml" />
     <Content Include="Areas\Admin\Views\HinhThucThanhToans\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HinhThucThanhToans\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HinhThucThanhToans\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HinhThucThanhToans\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PhanQuyens\Create.cshtml" />
     <Content Include="Areas\Admin\Views\PhanQuyens\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\PhanQuyens\Details.cshtml" />
     <Content Include="Areas\Admin\Views\PhanQuyens\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\PhanQuyens\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GiamGias\Create.cshtml" />
@@ -2555,14 +2544,11 @@
     <Content Include="Areas\Admin\Views\GiamGias\Details.cshtml" />
     <Content Include="Areas\Admin\Views\GiamGias\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\GiamGias\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DonHangs\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DonHangs\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\DonHangs\Details.cshtml" />
     <Content Include="Areas\Admin\Views\DonHangs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DonHangs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\HangSXes\Create.cshtml" />
     <Content Include="Areas\Admin\Views\HangSXes\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HangSXes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HangSXes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HangSXes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoans\Create.cshtml" />
@@ -2570,7 +2556,8 @@
     <Content Include="Areas\Admin\Views\TaiKhoans\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoans\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoans\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\SanPhams\CapNhatHinhAnh.cshtml" />
+    <Content Include="Areas\Admin\Views\DonHangs\GiaoHang.cshtml" />
+    <Content Include="Areas\Admin\Views\DonHangs\ThongKe.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2620,7 +2607,7 @@
     <Content Include="Views\AnhXes\Index.cshtml" />
     <Content Include="Views\AnhXes\UploadFiles.cshtml" />
     <Content Include="Views\SanPhams\DanhSach.cshtml" />
-    <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Home\ThongTinTaiKhoan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,21 +21,25 @@ namespace ShopXeMay.Models
             this.Comment = new HashSet<Comment>();
             this.DonHang = new HashSet<DonHang>();
         }
-    
+
         public int Id { get; set; }
         [DisplayName("Tên Đăng Nhập")]
         public string TenDangNhap { get; set; }
         [DisplayName("Mật Khẩu")]
         public string MatKhau { get; set; }
+        [DisplayName("Ngày Đăng Ký")]
         public Nullable<System.DateTime> NgayDangKy { get; set; }
+        [DisplayName("Tình Trạng")]
         public Nullable<bool> TinhTrang { get; set; }
+        [DisplayName("Tên Người Dùng")]
         public string TenNguoiDung { get; set; }
         public Nullable<int> idPhanQuyen { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHang { get; set; }
+        [DisplayName("Phân quyền")]
         public virtual PhanQuyen PhanQuyen { get; set; }
     }
 }

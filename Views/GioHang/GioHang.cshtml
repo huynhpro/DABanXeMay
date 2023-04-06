@@ -55,8 +55,13 @@
                                         <tr>
                                             <td class="product_thumb">
                                                 <a href="~/SanPhams/Details?idSanPham=@item.idSanPham">
-                                                    <img src="~/assets/images/product/@item.AnhSP"
+                                                    @{
+                                                        var item2 = new ShopXeMay.Models.mapAnhXe().GetAnhXeDefault(item.idSanPham);
+                                                    }
+                                                    
+                                                    <img style="width:150px;height:100px;" src="~/assets/images/product/@item.TenSanPham/@item2.Anh"
                                                          alt="">
+                                                    
                                                 </a>
                                             </td>
                                             <td class="product_name">
@@ -64,7 +69,7 @@
                                                     @item.TenSanPham
                                                 </a>
                                             </td>
-                                            <td class="product-price">@String.Format("{0:0,0} đ", item.GiaTien)</td>
+                                            <td style="text-transform: lowercase;" class="product-price">@String.Format("{0:0,0} đ", item.GiaTien)</td>
                                             @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @idSanPham = item.idSanPham }))
                                             {
                                                 <td class="product_quantity">

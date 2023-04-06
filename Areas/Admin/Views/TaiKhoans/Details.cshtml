@@ -4,13 +4,11 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
+<h4 style="font-weight:bold; margin-left: 10px;margin-bottom:3px;">Tài Khoản</h4>
 
 <div>
-    <h4>TaiKhoan</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal" style=" margin-left: 20px">
         <dt>
             @Html.DisplayNameFor(model => model.TenDangNhap)
         </dt>
@@ -62,6 +60,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a style="margin-left:20px;" class="btn btn-sm btn-success" href="~/Admin/taikhoans/Edit?id=@Model.Id">Cập Nhật</a>
 </p>

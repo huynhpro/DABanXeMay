@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<ShopXeMay.Models.PhanQuyen>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh Sách Quyền";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<a style="margin-left:10px;" class="btn btn-primary" href="~/Admin/PhanQuyens/create">Thêm Quyền</a>
 <table class="table">
     <tr>
         <th>
@@ -30,9 +26,9 @@
             @Html.DisplayFor(modelItem => item.Ghi_Chú)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDPhanQuyen }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDPhanQuyen }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDPhanQuyen })
+            <a class="btn btn-sm btn-success" href="~/Admin/PhanQuyens/Edit?id=@item.IDPhanQuyen">Cập Nhật</a>
+            <a class="btn btn-sm btn-info" href="~/Admin/PhanQuyens/Details?id=@item.IDPhanQuyen">Chi Tiết</a>
+            <a class="btn btn-sm btn-danger" href="~/Admin/PhanQuyens/Delete?id=@item.IDPhanQuyen">Xóa</a>
         </td>
     </tr>
 }

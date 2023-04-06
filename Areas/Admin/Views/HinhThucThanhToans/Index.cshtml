@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<ShopXeMay.Models.HinhThucThanhToan>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Hình Thức Thanh Toán";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<a style="margin-left:10px;" class="btn btn-primary" href="~/Admin/HinhThucThanhToans/create">Thêm Hình Thức</a>
+<h3 style="font-weight:bold;margin-left:10px;">Hình Thức Thanh Toán</h3>
 <table class="table">
     <tr>
         <th>
@@ -24,9 +20,9 @@
             @Html.DisplayFor(modelItem => item.TenHinhThuc)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            <a class="btn btn-sm btn-success" href="~/Admin/HinhThucThanhToans/Edit?id=@item.ID">Cập Nhật</a>
+            <a class="btn btn-sm btn-info" href="~/Admin/HinhThucThanhToans/Details?id=@item.ID">Chi Tiết</a>
+            <a class="btn btn-sm btn-danger" href="~/Admin/HinhThucThanhToans/Delete?id=@item.ID">Xóa</a>
         </td>
     </tr>
 }

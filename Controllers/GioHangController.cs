@@ -212,7 +212,7 @@ namespace ShopXeMay.Controllers
             string partnerCode = "MOMOOJOI20210710";
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
-            string orderInfo = Session["TenNguoiDung"] + " Đặt hàng với số tiền" +" " + string.Format("0:0,0 đ", dh.TongTien.ToString());
+            string orderInfo = Session["TenNguoiDung"] + " Đặt hàng với số tiền" +" " + String.Format("{0:0,0} đ", dh.TongTien.ToString());
             string returnUrl = "https://localhost:44351/GioHang/ConfirmPaymentClient";
             string notifyurl = "https://9dc2-113-161-73-78.ap.ngrok.io/GioHang/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
             var tienthanhtoan = "1000";
@@ -275,7 +275,6 @@ namespace ShopXeMay.Controllers
                 db.SaveChanges();
                 ViewBag.message = "CẢM ƠN QUÝ KHÁCH ĐÃ TIN TƯỞNG VÀ ỦNG HỘ SHOP";
             }
-
             return View();
         }
     }

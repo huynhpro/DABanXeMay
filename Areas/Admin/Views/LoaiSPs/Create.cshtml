@@ -1,16 +1,17 @@
 ﻿@model ShopXeMay.Models.LoaiSP
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tạo Loại Xe";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h4 style="font-weight:bold; margin-left: 10px;margin-bottom:3px;">Tạo Loại Xe</h4>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>LoaiSP</h4>
         <hr />
@@ -32,5 +33,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a style="margin-left:20px;" class="btn btn-primary" href="~/Admin/LoaiXes/Index">Trở Về</a>
 </div>

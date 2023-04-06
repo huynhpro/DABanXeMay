@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="breadcrumb-title">Chi Tiết Sản Phẩm: @Model.TenSanPham</h3>
+                    <h3 class="breadcrumb-title">Chi Tiết Xe @Model.TenSanPham</h3>
                     <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
                         <nav aria-label="breadcrumb">
                             <ul>
@@ -42,11 +42,10 @@
                                          alt="">
                                 </div>
                             }
-                      
+
                         </div>
                     </div>
                     <!-- End Large Image -->
-                    
                     <!-- Start Thumbnail Image -->
                     <div class="product-image-thumb product-image-thumb-horizontal swiper-container pos-relative mt-5">
                         <div class="swiper-wrapper">
@@ -57,26 +56,6 @@
                                          alt="">
                                 </div>
                             }
-                            @*<div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="~/assets/images/product/default/home-1/default-2.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="~/assets/images/product/default/home-1/default-3.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="~/assets/images/product/default/home-1/default-4.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="~/assets/images/product/default/home-1/default-5.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="~/assets/images/product/default/home-1/default-6.jpg"
-                                     alt="">
-                            </div>*@
                         </div>
                         <!-- Add Arrows -->
                         <div class="gallery-thumb-arrow swiper-button-next"></div>
@@ -90,6 +69,7 @@
                      data-aos-delay="200">
                     <!-- Start  Product Details Text Area-->
                     <div class="product-details-text">
+                    
                         <h4 class="title">@Model.TenSanPham</h4>
                         <div class="d-flex align-items-center">
                             <span class="customer-review ml-2">@Model.BaiViet</span>
@@ -97,22 +77,34 @@
                         <div class="price" style="color:#b91a1a;font-weight:bold;">@string.Format("{0:#,0}", Model.GiaBan)đ</div>
                     </div> <!-- End  Product Details Text Area-->
                     <!-- Start Product Variable Area -->
-                    <div class="product-details-variable">
-                        <!-- Product Variable Single Item -->
-                        <div class="d-flex align-items-center ">
-                            <div class="variable-single-item ">
-                                <span>Số Lượng</span>
-                                <div class="product-variable-quantity">
-                                    <input min="1" max="@Model.SoLuong" value="1" type="number">
+                    <form action="/GioHang/ThemGioHang?idSanPham=@Model.ID">
+                        <div class="product-details-variable">
+                            <!-- Product Variable Single Item -->
+                            <input type="text" name="idSanPham" value="@Model.ID" />
+                            <div class="d-flex align-items-center ">
+                                @*<div class="variable-single-item ">
+                <span style="margin-top:20px;">Số Lượng Còn Lại: @Model.SoLuong</span>
+            </div>*@
+                                <div class="variable-single-item ">
+                                    <span>Quantity</span>
+                                    <div class="product-variable-quantity">
+                                        <input min="1" max="100" name="soluong" value="" type="number">
+                                    </div>
                                 </div>
-                            </div>
+                                <div style="margin-left:50px;" class="product-add-to-cart-btn">
+                                    @if (Model.SoLuong > 0)
+                                    {
+                                        <button>Thêm vào giỏ hàng</button>
+                                    }
+                                    @if (Model.SoLuong == 0)
+                                    {
+                                        <button>Thêm vào giỏ hàng</button>
+                                    }
+                                </div>
 
-                            <div class="product-add-to-cart-btn">
-                                <a href="@Url.Action("ThemGioHang", "GioHang", new {@idSanPham = Model.ID, @strURL = Request.Url.ToString() })" class="btn btn-block btn-lg btn-black-default-hover"
-                                   data-bs-toggle="modal" data-bs-target="#modalAddcart">Thêm vào giỏ hàng</a>
                             </div>
                         </div>
-                    </div> <!-- End Product Variable Area -->
+                    </form><!-- End Product Variable Area -->
                     <!-- Start  Product Details Catagories Area-->
                     <div class="product-details-catagory mb-2">
                         <span class="title">Hãng, Loại Xe:</span>
@@ -341,3 +333,7 @@
         </div>
     </div>
 </div> <!-- End Product Content Tab Section -->
+@section script{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/assets/js/addcart.js"></script>
+}

@@ -37,10 +37,27 @@
     <!-- <link rel="stylesheet" href="~/assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="~/assets/css/plugins/plugins.min.css">
     <link rel="stylesheet" href="~/assets/css/style.min.css"> -->
-
 </head>
 
 <body>
+    <div class="float-right">
+        <button style="background-color: #5a7ede;" class="open-button" onclick="openForm()">Trò Chuyện</button>
+        <div class="chat-popup" id="myForm">
+            <form class="form-container">
+                <h3>Trò Chuyện</h3>
+
+                <label for="msg"><b>Nội Dung Tin</b></label>
+                <textarea placeholder="Nhập nội dung" id="message" name="message" required></textarea>
+                <input type="button" id="sendmessage" value="Gửi" />
+                <input type="hidden" id="displayname" value="@Session["TenNguoiDung"]" />
+                <ul id="discussion">
+                </ul>
+                @*<button type="submit" class="btn">Send</button>*@
+                <button type="button" class="btn cancel" onclick="closeForm()">Đóng</button>
+
+            </form>
+        </div>
+    </div>
     <!-- Start Header Area -->
     <header class="header-section d-none d-xl-block">
         <div class="header-wrapper">
@@ -104,10 +121,10 @@
                                             <a href="#">Hỗ Trợ <i class="fa fa-angle-down"></i></a>
                                             <!-- Sub Menu -->
                                             <ul class="sub-menu">
-                                                <li><a href="faq.html">Hỏi Đáp</a></li>
-                                                <li><a href="404.html">Trang Báo Lỗi</a></li>
+                                                <li><a href="~/DonHangs/GiaoHang">Giao Hàng</a></li>
+                                                <li><a href="~/Home/Chat">Trang Báo Lỗi</a></li>
                                                 <li><a href="~/GioHang/GioHang">Giỏ Hàng</a></li>
-                                                <li><a href="~/TaiKhoan/Edit/id=?">Thông Tin Tài Khoản</a></li>
+                                                <li><a href="~/Home/thongtintaikhoan">Thông Tin Tài Khoản</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -176,8 +193,8 @@
     <!-- Start Offcanvas Search Bar Section -->
     <div id="search" class="search-modal">
         <button type="button" class="close">×</button>
-        <form action="~/Home/TimKiem?sanpham=@ViewBag.sanpham">
-            <input type="search" placeholder="Nhập vào tên xe cần tìm" />
+        <form action="~/Home/TimKiem?">
+            <input type="search" id="sampham" name="sanpham" placeholder="Nhập vào tên xe cần tìm" />
             <button type="submit" class="btn btn-lg btn-golden">Tìm Kiếm</button>
         </form>
     </div>
@@ -195,12 +212,12 @@
                             <!-- Start Footer Single Item -->
                             <div class="footer-widget-single-item footer-widget-color--pink" data-aos="fade-up"
                                  data-aos-delay="0">
-                                <h5 class="title">INFORMATION</h5>
+                                <h5 class="title">Thông tin</h5>
                                 <ul class="footer-nav">
-                                    <li><a href="#">Delivery Information</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="~/Home/Contact">Contact</a></li>
-                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Thông tin giao hàng</a></li>
+                                    <li><a href="#">Điều khoản và điều kiện</a></li>
+                                    <li><a href="~/Home/Contact">Liên hệ</a></li>
+                                    <li><a href="#">Hoàn tiền</a></li>
                                 </ul>
                             </div>
                             <!-- End Footer Single Item -->
@@ -209,13 +226,13 @@
                             <!-- Start Footer Single Item -->
                             <div class="footer-widget-single-item footer-widget-color--pink" data-aos="fade-up"
                                  data-aos-delay="200">
-                                <h5 class="title">MY ACCOUNT</h5>
+                                <h5 class="title">Tài khoản của tôi</h5>
                                 <ul class="footer-nav">
-                                    <li><a href="~/TaiKhoan/Edit/id=?">My account</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                    <li><a href="faq.html">Frequently Questions</a></li>
-                                    <li><a href="#">Order History</a></li>
+                                    <li><a href="~/TaiKhoan/Edit/id=?">Tài khoản của tôi</a></li>
+                                    <li><a href="wishlist.html">Danh sách yêu thích</a></li>
+                                    <li><a href="privacy-policy.html">Chính sách bảo mật</a></li>
+                                    <li><a href="faq.html">Các câu hỏi</a></li>
+                                    <li><a href="#">Lịch sử đơn hàng</a></li>
                                 </ul>
                             </div>
                             <!-- End Footer Single Item -->
@@ -224,13 +241,12 @@
                             <!-- Start Footer Single Item -->
                             <div class="footer-widget-single-item footer-widget-color--pink" data-aos="fade-up"
                                  data-aos-delay="400">
-                                <h5 class="title">CATEGORIES</h5>
+                                <h5 class="title">LOẠI XE</h5>
                                 <ul class="footer-nav">
-                                    <li><a href="#">Decorative</a></li>
-                                    <li><a href="#">Kitchen utensils</a></li>
-                                    <li><a href="#">Chair & Bar stools</a></li>
-                                    <li><a href="#">Sofas and Armchairs</a></li>
-                                    <li><a href="#">Interior lighting</a></li>
+                                    <li><a href="#">Xe số</a></li>
+                                    <li><a href="#">Xe ga</a></li>
+                                    <li><a href="#">Xe côn</a></li>
+                                    <li><a href="#">Xe điện</a></li>
                                 </ul>
                             </div>
                             <!-- End Footer Single Item -->
@@ -239,16 +255,14 @@
                             <!-- Start Footer Single Item -->
                             <div class="footer-widget-single-item footer-widget-color--pink" data-aos="fade-up"
                                  data-aos-delay="600">
-                                <h5 class="title">ABOUT US</h5>
+                                <h5 class="title">THÔNG TIN CỦA CHÚNG TÔI</h5>
                                 <div class="footer-about">
                                     <p>
-                                        We are a team of designers and developers that create high quality Magento,
-                                        Prestashop, Opencart.
+                                        Chúng tôi là một nhóm chuyện gia về các loại xe số xe ga xe côn....
                                     </p>
 
                                     <address>
-                                        <span>Address: Your address goes here.</span>
-                                        <span>Email: demo@example.com</span>
+                                        <span>Email: hutech.edu.vn</span>
                                     </address>
                                 </div>
                             </div>
@@ -264,23 +278,22 @@
                     <div class="row mb-n6">
                         <div class="col-xl-3 col-lg-4 col-md-6 mb-6">
                             <div class="footer-social" data-aos="fade-up" data-aos-delay="0">
-                                <h4 class="title">FOLLOW US</h4>
+                                <h4 class="title">Theo dõi chúng tôi</h4>
                                 <ul class="footer-social-link">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="https://www.facebook.com/hutechuniversity/?locale=vi_VN"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://twitter.com/hutechvietnam?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="https://www.instagram.com/hutechuniversity/"><i class="fa fa-instagram"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-xl-7 col-lg-6 col-md-6 mb-6">
                             <div class="footer-newsletter" data-aos="fade-up" data-aos-delay="200">
-                                <h4 class="title">DON'T MISS OUT ON THE LATEST</h4>
+                                <h4 class="title">ĐỪNG BỎ LỠ</h4>
                                 <div class="form-newsletter">
                                     <form action="#" method="post">
                                         <div class="form-fild-newsletter-single-item input-color--pink">
                                             <input type="email" placeholder="Your email address..." required>
-                                            <button type="submit">SUBSCRIBE!</button>
+                                            <button type="submit">ĐĂNG KÝ!</button>
                                         </div>
                                     </form>
                                 </div>
@@ -315,25 +328,8 @@
             </div>
             <!-- Start Footer Bottom -->
         </div>
-        <div class="float-right">
-            <button class="open-button" onclick="openForm()">Chat</button>
-            <div class="chat-popup" id="myForm">
-                <form class="form-container">
-                    <h3>Trò Chuyện</h3>
-
-                    <label for="msg"><b>Nội Dung Tin</b></label>
-                    <textarea placeholder="Nhập nội dung" id="message" name="message" required></textarea>
-                    <input type="button" id="sendmessage" value="Gửi" />
-                    <input type="hidden" id="displayname" value="@Session["TenNguoiDung"]" />
-                    <ul id="discussion">
-                    </ul>
-                    @*<button type="submit" class="btn">Send</button>*@
-                    <button type="button" class="btn cancel" onclick="closeForm()">Đóng</button>
-
-                </form>
-            </div>
-        </div>
     </footer>
+
     <!-- End Footer Section -->
     <!-- material-scrolltop button -->
     <button class="material-scrolltop" type="button"></button>
@@ -519,13 +515,6 @@
                                                     <input min="1" max="100" value="1" type="number">
                                                 </div>
                                             </div>
-
-                                            <div class="product-add-to-cart-btn">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart">
-                                                    Add To
-                                                    Cart
-                                                </a>
-                                            </div>
                                         </div>
                                     </div> <!-- End Product Variable Area -->
                                     <div class="modal-product-about-text">
@@ -558,37 +547,6 @@
             </div>
         </div>
     </div> <!-- End Modal Quickview cart -->
-    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script>
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-        }
-
-        function closeForm() {
-            document.getElementById("myForm").style.display = "none";
-        }
-    </script>
-    <script>
-        $(function () {
-            var chat = $.connection.chatHub;
-            chat.client.addNewMessageToPage = function (name, message) {
-                $('#discussion').append('<li><strong>' + htmlEncode(name)
-                    + '</strong>: ' + htmlEncode(message) + '</li>');
-            };
-            $('#message').focus();
-            $.connection.hub.start().done(function () {
-                $('#sendmessage').click(function () {
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    $('#message').val('').focus();
-                });
-            });
-        });
-        function htmlEncode(value) {
-            var encodedValue = $('<div />').text(value).html();
-            return encodedValue;
-        }
-    </script>
     <!-- ::::::::::::::All JS Files here :::::::::::::: -->
     <!-- Global Vendor, plugins JS -->
     <script src="~/assets/js/vendor/modernizr-3.11.2.min.js"></script>
@@ -674,6 +632,38 @@
     <script src="~/assets/js/plugins/plugins.min.js"></script> -->
     <!-- Main JS -->
     <script src="~/assets/js/main.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+    <script>
+        $(function () {
+            var chat = $.connection.chatHub;
+            chat.client.addNewMessageToPage = function (name, message) {
+                $('#discussion').append('<li><strong>' + htmlEncode(name)
+                    + '</strong>: ' + htmlEncode(message) + '</li>');
+            };
+            $('#message').focus();
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    chat.server.send($('#displayname').val(), $('#message').val());
+                    $('#message').val('').focus();
+                });
+            });
+        });
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
+    @RenderSection("script", required: false)
 </body>
 
 

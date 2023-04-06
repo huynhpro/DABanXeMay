@@ -6,7 +6,6 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 namespace ShopXeMay.Models
 {
     using System;
@@ -20,13 +19,13 @@ namespace ShopXeMay.Models
         {
             this.SanPham = new HashSet<SanPham>();
         }
-    
+
         public int Id { get; set; }
         [DisplayName("Tên Hãng")]
         public string TenHangSX { get; set; }
         [DisplayName("Địa Chỉ")]
         public string DiaChi { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }
     }

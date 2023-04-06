@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "ThongTinTaiKhoan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Tên Đăng Nhập
+        </th>
+        <th>
+            Họ Và Tên
+        </th>
+        <th>
+            Mật Khẩu
+        </th>
+        <th>
+            Ngày Đăng Ký
+        </th>
+
+        <th></th>
+    </tr>
+    <tr>
+        <th>
+            @ViewBag.email
+        </th>
+        <th>
+            @ViewBag.ten
+        </th>
+        <th>
+            @ViewBag.matkhau
+        </th>
+        <th>
+            @ViewBag.ngaydangky
+        </th>
+        <th></th>
+    </tr>
+</table>
+

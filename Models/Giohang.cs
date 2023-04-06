@@ -22,8 +22,8 @@ namespace ShopXeMay.Models
         public Giohang(int ID)
         {
             idSanPham = ID;
-            SanPham sanpham = db.SanPham.Single(n => n.ID == idSanPham);
-            AnhXe ax = db.AnhXe.Single(n => n.idSanPham == idSanPham && n.IsDefault == true);
+            SanPham sanpham = db.SanPham.FirstOrDefault(n => n.ID == idSanPham);
+            AnhXe ax = db.AnhXe.FirstOrDefault(n => n.idSanPham == idSanPham && n.IsDefault == true);
             TenSanPham = sanpham.TenSanPham;
             AnhSP = ax.Anh;
             GiaTien = sanpham.GiaBan;

@@ -24,6 +24,7 @@
 </div> <!-- ...:::: End Breadcrumb Section:::... -->
 <!-- ...:::: End Customer Login Section :::... -->
 <div class="col-md-6" style="margin:auto;">
+    @ViewBag.error
     @using (Html.BeginForm("Login", "Home",FormMethod.Post, new { id = "Login" }))
     {
         @Html.AntiForgeryToken()
