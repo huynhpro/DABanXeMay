@@ -10,16 +10,12 @@
 namespace ShopXeMay.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SanPham_DatHang
+    public partial class BaoCaoSoLuongDon_Result
     {
-        public long idDonHang { get; set; }
-        public int idSanPham { get; set; }
-        public Nullable<int> SoLuong { get; set; }
-        public double GiaBan { get; set; }
-    
-        public virtual DonHang DonHang { get; set; }
-        public virtual SanPham SanPham { get; set; }
+        public Nullable<int> Nam { get; set; }
+        public Nullable<int> Thang { get; set; }
+        public Nullable<int> SoLuongDon { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
     }
 }

@@ -12,10 +12,10 @@ namespace ShopXeMay.Models
         public int idSanPham { get; set; }
         public string TenSanPham { get; set; }
         public string AnhSP { get; set; }
-        public decimal? GiaTien { get; set; }
+        public double GiaTien { get; set; }
         public int soluong { get; set; }
         public double? giamgia { get; set; }
-        public decimal? thanhTien
+        public double thanhTien
         {
             get { return soluong * GiaTien; }
         }

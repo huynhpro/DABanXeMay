@@ -171,7 +171,7 @@ namespace ShopXeMay.Controllers
                 Session["TenNguoiDung"] = data.FirstOrDefault().TenNguoiDung;
                 Session["TenDangNhap"] = data.FirstOrDefault().TenDangNhap;
                 Session["Id"] = data.FirstOrDefault().Id;
-                return RedirectToAction("Index", "Home", new { area = "Admin" });
+                return RedirectToAction("ThongKe", "DonHangs", new { area = "Admin" });
             }
             else
             {

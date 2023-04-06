@@ -29,7 +29,7 @@
     <Property Name="NgayDat" Type="datetime" />
     <Property Name="NgayGiao" Type="datetime" />
     <Property Name="DiaChiGiao" Type="nvarchar" MaxLength="500" />
-    <Property Name="TongTien" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TongTien" Type="float" Nullable="false" />
     <Property Name="idHinhThucThanhToan" Type="int" />
   </EntityType>
   <EntityType Name="GiamGia">
@@ -82,7 +82,7 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenSanPham" Type="nvarchar" MaxLength="500" />
-    <Property Name="GiaBan" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="GiaBan" Type="float" Nullable="false" />
     <Property Name="NgayNhap" Type="datetime" />
     <Property Name="ConHang" Type="bit" />
     <Property Name="SoLuong" Type="bigint" />
@@ -99,7 +99,7 @@
     <Property Name="idDonHang" Type="bigint" Nullable="false" />
     <Property Name="idSanPham" Type="int" Nullable="false" />
     <Property Name="SoLuong" Type="int" />
-    <Property Name="GiaBan" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="GiaBan" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="TaiKhoan">
     <Key>
@@ -271,6 +271,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="BaoCaoSoLuongDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nam" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="BanXeMayModelStoreContainer">
     <EntitySet Name="AnhXe" EntityType="Self.AnhXe" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />

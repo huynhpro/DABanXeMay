@@ -6,10 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using ShopXeMay.App_Start;
 using ShopXeMay.Models;
 
 namespace ShopXeMay.Areas.Admin.Controllers
 {
+    //[AdminAuthorize(idPhanQuyen = 1)]
     public class DonHangsController : Controller
     {
         private BanXeMayEntities db = new BanXeMayEntities();
@@ -44,6 +47,7 @@ namespace ShopXeMay.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Edit([Bind(Include = "ID_DonHang,idTaiKhoan,DaThanhToan,TrangThaiGiaoHang,NgayDat,NgayGiao,DiaChiGiao,TongTien,idHinhThucThanhToan")] DonHang donHang)
         {
             if (ModelState.IsValid)
@@ -59,9 +63,50 @@ namespace ShopXeMay.Areas.Admin.Controllers
         }
         public ActionResult ThongKe(int? thang, int? nam)
         {
+            ViewBag.songuoitruycap = HttpContext.Application["SoNguoiTruyCap"].ToString() as string;
+            ViewBag.online = HttpContext.Application["Online"].ToString() as string;
             ViewBag.nam = nam ?? DateTime.Now.Year;
             ViewBag.thang = thang;
+            ViewBag.tongthanhvien = TongThanhVien();
+            ViewBag.tongdonhang = TongDonHang();
+            ViewBag.tongdoanhthu = ThongKeDoanhThu();
+            //ViewBag.tongdoanhthuthang = ThongKeDoanhThuThang(thang, nam);
+            
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            var sanpham = db.SanPham.ToList();
+            foreach (var item in sanpham)
+            {
+                var check = db.SanPham_DatHang.Where(n => n.idSanPham == item.ID).ToList().Count;
+                if (check > 0)
+                {
+                    double temp = double.Parse(item.GiaBan.ToString());
+                    dataPoints.Add(new DataPoint(item.TenSanPham, check*temp*100/ThongKeDoanhThu()));
+                }
+            }
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
             return View();
+        }
+      
+        public double ThongKeDoanhThu()
+        {
+            double TongDoanhThu = db.DonHang.Sum(n => n.TongTien);
+            return TongDoanhThu;
+        }
+        //public double ThongKeDoanhThuThang(int? thang, int? nam)
+        //{
+        //    double TongDoanhThu = db.DonHang.Where(n => n.NgayGiao.Value.Month == thang && n.NgayGiao.Value.Year == nam).Sum(n => n.TongTien);
+        //    return TongDoanhThu;
+        //}
+        public double TongDonHang()
+        {
+            double sl = db.DonHang.ToList().Count();
+            return sl;
+        }
+        public double TongThanhVien()
+        {
+            double sl = db.TaiKhoan.ToList().Count();
+            return sl;
         }
         public ActionResult GiaoHang(long? id)
         {

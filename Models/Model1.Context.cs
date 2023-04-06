@@ -12,6 +12,8 @@ namespace ShopXeMay.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class BanXeMayEntities : DbContext
     {
@@ -26,16 +28,25 @@ namespace ShopXeMay.Models
         }
     
         public virtual DbSet<Comment> Comment { get; set; }
-        public virtual DbSet<DonHang> DonHang { get; set; }
         public virtual DbSet<GiamGia> GiamGia { get; set; }
         public virtual DbSet<GiaoHang> GiaoHang { get; set; }
         public virtual DbSet<HangSX> HangSX { get; set; }
         public virtual DbSet<HinhThucThanhToan> HinhThucThanhToan { get; set; }
         public virtual DbSet<LoaiSP> LoaiSP { get; set; }
         public virtual DbSet<PhanQuyen> PhanQuyen { get; set; }
-        public virtual DbSet<SanPham_DatHang> SanPham_DatHang { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoan { get; set; }
         public virtual DbSet<AnhXe> AnhXe { get; set; }
+        public virtual DbSet<DonHang> DonHang { get; set; }
         public virtual DbSet<SanPham> SanPham { get; set; }
+        public virtual DbSet<SanPham_DatHang> SanPham_DatHang { get; set; }
+    
+        public virtual ObjectResult<BaoCaoSoLuongDon_Result> BaoCaoSoLuongDon(Nullable<int> nam)
+        {
+            var namParameter = nam.HasValue ?
+                new ObjectParameter("nam", nam) :
+                new ObjectParameter("nam", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BaoCaoSoLuongDon_Result>("BaoCaoSoLuongDon", namParameter);
+        }
     }
 }

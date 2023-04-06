@@ -9,10 +9,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using ShopXeMay.App_Start;
 using ShopXeMay.Models;
 
 namespace ShopXeMay.Areas.Admin.Controllers
 {
+    //[AdminAuthorize(idPhanQuyen = 1)]
     public class SanPhamsController : Controller
     {
         private BanXeMayEntities db = new BanXeMayEntities();

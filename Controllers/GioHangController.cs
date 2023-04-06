@@ -54,9 +54,9 @@ namespace ShopXeMay.Controllers
             }
             return tong;
         }
-        private decimal? TongTien()
+        private double TongTien()
         {
-            decimal? tongTien = 0;
+            double tongTien = 0;
             List<Giohang> lstGioHang = Session["Giohang"] as List<Giohang>;
             if (lstGioHang != null)
             {
@@ -64,9 +64,9 @@ namespace ShopXeMay.Controllers
             }
             return tongTien;
         }
-        private decimal? TongTienSauKhuyenMai()
+        private double TongTienSauKhuyenMai()
         {
-            decimal? tongTien = 0;
+            double tongTien = 0;
             List<Giohang> lstGioHang = Session["Giohang"] as List<Giohang>;
             if (lstGioHang != null)
             {
@@ -186,7 +186,7 @@ namespace ShopXeMay.Controllers
                 ct.idDonHang = dh.ID_DonHang;
                 ct.idSanPham = item.idSanPham;
                 ct.SoLuong = item.soluong;
-                ct.GiaBan = (decimal)item.GiaTien;
+                ct.GiaBan = (double)item.GiaTien;
                 db.SanPham_DatHang.Add(ct);
                 db.SaveChanges();
 

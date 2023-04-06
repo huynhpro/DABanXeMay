@@ -34,7 +34,7 @@
           <Property Name="NgayDat" Type="datetime" />
           <Property Name="NgayGiao" Type="datetime" />
           <Property Name="DiaChiGiao" Type="nvarchar" MaxLength="500" />
-          <Property Name="TongTien" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TongTien" Type="float" Nullable="false" />
           <Property Name="idHinhThucThanhToan" Type="int" />
         </EntityType>
         <EntityType Name="GiamGia">
@@ -87,7 +87,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenSanPham" Type="nvarchar" MaxLength="500" />
-          <Property Name="GiaBan" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="GiaBan" Type="float" Nullable="false" />
           <Property Name="NgayNhap" Type="datetime" />
           <Property Name="ConHang" Type="bit" />
           <Property Name="SoLuong" Type="bigint" />
@@ -104,7 +104,7 @@
           <Property Name="idDonHang" Type="bigint" Nullable="false" />
           <Property Name="idSanPham" Type="int" Nullable="false" />
           <Property Name="SoLuong" Type="int" />
-          <Property Name="GiaBan" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="GiaBan" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="TaiKhoan">
           <Key>
@@ -276,6 +276,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="BaoCaoSoLuongDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nam" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="BanXeMayModelStoreContainer">
           <EntitySet Name="AnhXe" EntityType="Self.AnhXe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
@@ -353,24 +356,6 @@
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_Comment_TaiKhoan" FromRole="Comment" ToRole="TaiKhoan" />
           <NavigationProperty Name="SanPham" Relationship="BanXeMayModel.FK_Comment_SanPham" FromRole="Comment" ToRole="SanPham" />
         </EntityType>
-        <EntityType Name="DonHang">
-          <Key>
-            <PropertyRef Name="ID_DonHang" />
-          </Key>
-          <Property Name="ID_DonHang" Type="Int64" Nullable="false" />
-          <Property Name="idTaiKhoan" Type="Int32" />
-          <Property Name="DaThanhToan" Type="Boolean" />
-          <Property Name="TrangThaiGiaoHang" Type="Int32" />
-          <Property Name="NgayDat" Type="DateTime" Precision="3" />
-          <Property Name="NgayGiao" Type="DateTime" Precision="3" />
-          <Property Name="DiaChiGiao" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="TongTien" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="idHinhThucThanhToan" Type="Int32" />
-          <NavigationProperty Name="GiaoHang" Relationship="Self.FK_DonHang_GiaoHang" FromRole="DonHang" ToRole="GiaoHang" />
-          <NavigationProperty Name="HinhThucThanhToan" Relationship="Self.FK_DonHang_HinhThucThanhToan" FromRole="DonHang" ToRole="HinhThucThanhToan" />
-          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_DonHang_TaiKhoan" FromRole="DonHang" ToRole="TaiKhoan" />
-          <NavigationProperty Name="SanPham_DatHang" Relationship="Self.FK_SanPham_DatHang_DonHang1" FromRole="DonHang" ToRole="SanPham_DatHang" />
-        </EntityType>
         <EntityType Name="GiamGia">
           <Key>
             <PropertyRef Name="ID" />
@@ -385,7 +370,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenTrangThai" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DonHang" Relationship="Self.FK_DonHang_GiaoHang" FromRole="GiaoHang" ToRole="DonHang" />
+          <NavigationProperty Name="DonHang" Relationship="BanXeMayModel.FK_DonHang_GiaoHang" FromRole="GiaoHang" ToRole="DonHang" />
         </EntityType>
         <EntityType Name="HangSX">
           <Key>
@@ -402,7 +387,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenHinhThuc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DonHang" Relationship="Self.FK_DonHang_HinhThucThanhToan" FromRole="HinhThucThanhToan" ToRole="DonHang" />
+          <NavigationProperty Name="DonHang" Relationship="BanXeMayModel.FK_DonHang_HinhThucThanhToan" FromRole="HinhThucThanhToan" ToRole="DonHang" />
         </EntityType>
         <EntityType Name="LoaiSP">
           <Key>
@@ -421,18 +406,6 @@
           <Property Name="Ghi_Chú" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_TaiKhoan_PhanQuyen" FromRole="PhanQuyen" ToRole="TaiKhoan" />
         </EntityType>
-        <EntityType Name="SanPham_DatHang">
-          <Key>
-            <PropertyRef Name="idDonHang" />
-            <PropertyRef Name="idSanPham" />
-          </Key>
-          <Property Name="idDonHang" Type="Int64" Nullable="false" />
-          <Property Name="idSanPham" Type="Int32" Nullable="false" />
-          <Property Name="SoLuong" Type="Int32" />
-          <Property Name="GiaBan" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="DonHang" Relationship="Self.FK_SanPham_DatHang_DonHang1" FromRole="SanPham_DatHang" ToRole="DonHang" />
-          <NavigationProperty Name="SanPham" Relationship="BanXeMayModel.FK_SanPham_DatHang_SanPham" FromRole="SanPham_DatHang" ToRole="SanPham" />
-        </EntityType>
         <EntityType Name="TaiKhoan">
           <Key>
             <PropertyRef Name="Id" />
@@ -445,8 +418,8 @@
           <Property Name="TenNguoiDung" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="idPhanQuyen" Type="Int32" />
           <NavigationProperty Name="Comment" Relationship="Self.FK_Comment_TaiKhoan" FromRole="TaiKhoan" ToRole="Comment" />
-          <NavigationProperty Name="DonHang" Relationship="Self.FK_DonHang_TaiKhoan" FromRole="TaiKhoan" ToRole="DonHang" />
           <NavigationProperty Name="PhanQuyen" Relationship="Self.FK_TaiKhoan_PhanQuyen" FromRole="TaiKhoan" ToRole="PhanQuyen" />
+          <NavigationProperty Name="DonHang" Relationship="BanXeMayModel.FK_DonHang_TaiKhoan" FromRole="TaiKhoan" ToRole="DonHang" />
         </EntityType>
         <Association Name="FK_Comment_TaiKhoan">
           <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1">
@@ -459,58 +432,6 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="idTaiKhoan" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DonHang_GiaoHang">
-          <End Role="GiaoHang" Type="Self.GiaoHang" Multiplicity="0..1" />
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GiaoHang">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="TrangThaiGiaoHang" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DonHang_HinhThucThanhToan">
-          <End Role="HinhThucThanhToan" Type="Self.HinhThucThanhToan" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HinhThucThanhToan">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="idHinhThucThanhToan" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DonHang_TaiKhoan">
-          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaiKhoan">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="idTaiKhoan" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SanPham_DatHang_DonHang1">
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="SanPham_DatHang" Type="Self.SanPham_DatHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonHang">
-              <PropertyRef Name="ID_DonHang" />
-            </Principal>
-            <Dependent Role="SanPham_DatHang">
-              <PropertyRef Name="idDonHang" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -530,41 +451,28 @@
         </Association>
         <EntityContainer Name="BanXeMayEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Comment" EntityType="Self.Comment" />
-          <EntitySet Name="DonHang" EntityType="Self.DonHang" />
           <EntitySet Name="GiamGia" EntityType="Self.GiamGia" />
           <EntitySet Name="GiaoHang" EntityType="Self.GiaoHang" />
           <EntitySet Name="HangSX" EntityType="Self.HangSX" />
           <EntitySet Name="HinhThucThanhToan" EntityType="Self.HinhThucThanhToan" />
           <EntitySet Name="LoaiSP" EntityType="Self.LoaiSP" />
           <EntitySet Name="PhanQuyen" EntityType="Self.PhanQuyen" />
-          <EntitySet Name="SanPham_DatHang" EntityType="Self.SanPham_DatHang" />
           <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" />
           <AssociationSet Name="FK_Comment_TaiKhoan" Association="Self.FK_Comment_TaiKhoan">
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
             <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DonHang_GiaoHang" Association="Self.FK_DonHang_GiaoHang">
-            <End Role="GiaoHang" EntitySet="GiaoHang" />
-            <End Role="DonHang" EntitySet="DonHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DonHang_HinhThucThanhToan" Association="Self.FK_DonHang_HinhThucThanhToan">
-            <End Role="HinhThucThanhToan" EntitySet="HinhThucThanhToan" />
-            <End Role="DonHang" EntitySet="DonHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DonHang_TaiKhoan" Association="Self.FK_DonHang_TaiKhoan">
-            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
-            <End Role="DonHang" EntitySet="DonHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SanPham_DatHang_DonHang1" Association="Self.FK_SanPham_DatHang_DonHang1">
-            <End Role="DonHang" EntitySet="DonHang" />
-            <End Role="SanPham_DatHang" EntitySet="SanPham_DatHang" />
           </AssociationSet>
           <AssociationSet Name="FK_TaiKhoan_PhanQuyen" Association="Self.FK_TaiKhoan_PhanQuyen">
             <End Role="PhanQuyen" EntitySet="PhanQuyen" />
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
           </AssociationSet>
           <EntitySet Name="AnhXe" EntityType="BanXeMayModel.AnhXe" />
+          <FunctionImport Name="BaoCaoSoLuongDon" ReturnType="Collection(BanXeMayModel.BaoCaoSoLuongDon_Result)">
+          <Parameter Name="nam" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="DonHang" EntityType="BanXeMayModel.DonHang" />
           <EntitySet Name="SanPham" EntityType="BanXeMayModel.SanPham" />
+          <EntitySet Name="SanPham_DatHang" EntityType="BanXeMayModel.SanPham_DatHang" />
           <AssociationSet Name="FK_AnhXe_SanPham" Association="BanXeMayModel.FK_AnhXe_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="AnhXe" EntitySet="AnhXe" />
@@ -572,6 +480,22 @@
           <AssociationSet Name="FK_Comment_SanPham" Association="BanXeMayModel.FK_Comment_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonHang_GiaoHang" Association="BanXeMayModel.FK_DonHang_GiaoHang">
+            <End Role="GiaoHang" EntitySet="GiaoHang" />
+            <End Role="DonHang" EntitySet="DonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonHang_HinhThucThanhToan" Association="BanXeMayModel.FK_DonHang_HinhThucThanhToan">
+            <End Role="HinhThucThanhToan" EntitySet="HinhThucThanhToan" />
+            <End Role="DonHang" EntitySet="DonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonHang_TaiKhoan" Association="BanXeMayModel.FK_DonHang_TaiKhoan">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="DonHang" EntitySet="DonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SanPham_DatHang_DonHang1" Association="BanXeMayModel.FK_SanPham_DatHang_DonHang1">
+            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="SanPham_DatHang" EntitySet="SanPham_DatHang" />
           </AssociationSet>
           <AssociationSet Name="FK_SanPham_GiamGia" Association="BanXeMayModel.FK_SanPham_GiamGia">
             <End Role="GiamGia" EntitySet="GiamGia" />
@@ -589,7 +513,7 @@
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="SanPham_DatHang" EntitySet="SanPham_DatHang" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AnhXe">
           <Key>
             <PropertyRef Name="idAnh" />
@@ -600,13 +524,37 @@
           <Property Name="IsDefault" Type="Boolean" />
           <NavigationProperty Name="SanPham" Relationship="BanXeMayModel.FK_AnhXe_SanPham" FromRole="AnhXe" ToRole="SanPham" />
         </EntityType>
+        <ComplexType Name="BaoCaoSoLuongDon_Result">
+          <Property Type="Int32" Name="Nam" Nullable="true" />
+          <Property Type="Int32" Name="Thang" Nullable="true" />
+          <Property Type="Int32" Name="SoLuongDon" Nullable="true" />
+          <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="ID_DonHang" />
+          </Key>
+          <Property Name="ID_DonHang" Type="Int64" Nullable="false" />
+          <Property Name="idTaiKhoan" Type="Int32" />
+          <Property Name="DaThanhToan" Type="Boolean" />
+          <Property Name="TrangThaiGiaoHang" Type="Int32" />
+          <Property Name="NgayDat" Type="DateTime" Precision="3" />
+          <Property Name="NgayGiao" Type="DateTime" Precision="3" />
+          <Property Name="DiaChiGiao" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TongTien" Type="Double" Nullable="false" />
+          <Property Name="idHinhThucThanhToan" Type="Int32" />
+          <NavigationProperty Name="GiaoHang" Relationship="BanXeMayModel.FK_DonHang_GiaoHang" FromRole="DonHang" ToRole="GiaoHang" />
+          <NavigationProperty Name="HinhThucThanhToan" Relationship="BanXeMayModel.FK_DonHang_HinhThucThanhToan" FromRole="DonHang" ToRole="HinhThucThanhToan" />
+          <NavigationProperty Name="TaiKhoan" Relationship="BanXeMayModel.FK_DonHang_TaiKhoan" FromRole="DonHang" ToRole="TaiKhoan" />
+          <NavigationProperty Name="SanPham_DatHang" Relationship="BanXeMayModel.FK_SanPham_DatHang_DonHang1" FromRole="DonHang" ToRole="SanPham_DatHang" />
+        </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenSanPham" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="GiaBan" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="GiaBan" Type="Double" Nullable="false" />
           <Property Name="NgayNhap" Type="DateTime" Precision="3" />
           <Property Name="ConHang" Type="Boolean" />
           <Property Name="SoLuong" Type="Int64" />
@@ -620,6 +568,18 @@
           <NavigationProperty Name="HangSX" Relationship="BanXeMayModel.FK_SanPham_HangSX" FromRole="SanPham" ToRole="HangSX" />
           <NavigationProperty Name="LoaiSP" Relationship="BanXeMayModel.FK_SanPham_LoaiSP" FromRole="SanPham" ToRole="LoaiSP" />
           <NavigationProperty Name="SanPham_DatHang" Relationship="BanXeMayModel.FK_SanPham_DatHang_SanPham" FromRole="SanPham" ToRole="SanPham_DatHang" />
+        </EntityType>
+        <EntityType Name="SanPham_DatHang">
+          <Key>
+            <PropertyRef Name="idDonHang" />
+            <PropertyRef Name="idSanPham" />
+          </Key>
+          <Property Name="idDonHang" Type="Int64" Nullable="false" />
+          <Property Name="idSanPham" Type="Int32" Nullable="false" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="GiaBan" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DonHang" Relationship="BanXeMayModel.FK_SanPham_DatHang_DonHang1" FromRole="SanPham_DatHang" ToRole="DonHang" />
+          <NavigationProperty Name="SanPham" Relationship="BanXeMayModel.FK_SanPham_DatHang_SanPham" FromRole="SanPham_DatHang" ToRole="SanPham" />
         </EntityType>
         <Association Name="FK_AnhXe_SanPham">
           <End Type="BanXeMayModel.SanPham" Role="SanPham" Multiplicity="0..1" />
@@ -644,6 +604,58 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="idSanPham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonHang_GiaoHang">
+          <End Type="BanXeMayModel.GiaoHang" Role="GiaoHang" Multiplicity="0..1" />
+          <End Type="BanXeMayModel.DonHang" Role="DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiaoHang">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="TrangThaiGiaoHang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonHang_HinhThucThanhToan">
+          <End Type="BanXeMayModel.HinhThucThanhToan" Role="HinhThucThanhToan" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BanXeMayModel.DonHang" Role="DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HinhThucThanhToan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="idHinhThucThanhToan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonHang_TaiKhoan">
+          <End Type="BanXeMayModel.TaiKhoan" Role="TaiKhoan" Multiplicity="0..1" />
+          <End Type="BanXeMayModel.DonHang" Role="DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="idTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SanPham_DatHang_DonHang1">
+          <End Type="BanXeMayModel.DonHang" Role="DonHang" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BanXeMayModel.SanPham_DatHang" Role="SanPham_DatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="ID_DonHang" />
+            </Principal>
+            <Dependent Role="SanPham_DatHang">
+              <PropertyRef Name="idDonHang" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -699,7 +711,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -711,21 +723,6 @@
                 <ScalarProperty Name="idTaiKhoan" ColumnName="idTaiKhoan" />
                 <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
                 <ScalarProperty Name="BinhLuan" ColumnName="BinhLuan" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DonHang">
-            <EntityTypeMapping TypeName="BanXeMayModel.DonHang">
-              <MappingFragment StoreEntitySet="DonHang">
-                <ScalarProperty Name="ID_DonHang" ColumnName="ID_DonHang" />
-                <ScalarProperty Name="idTaiKhoan" ColumnName="idTaiKhoan" />
-                <ScalarProperty Name="DaThanhToan" ColumnName="DaThanhToan" />
-                <ScalarProperty Name="TrangThaiGiaoHang" ColumnName="TrangThaiGiaoHang" />
-                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-                <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
-                <ScalarProperty Name="DiaChiGiao" ColumnName="DiaChiGiao" />
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-                <ScalarProperty Name="idHinhThucThanhToan" ColumnName="idHinhThucThanhToan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -779,16 +776,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SanPham_DatHang">
-            <EntityTypeMapping TypeName="BanXeMayModel.SanPham_DatHang">
-              <MappingFragment StoreEntitySet="SanPham_DatHang">
-                <ScalarProperty Name="idDonHang" ColumnName="idDonHang" />
-                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TaiKhoan">
             <EntityTypeMapping TypeName="BanXeMayModel.TaiKhoan">
               <MappingFragment StoreEntitySet="TaiKhoan">
@@ -812,6 +799,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BaoCaoSoLuongDon" FunctionName="BanXeMayModel.Store.BaoCaoSoLuongDon">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BanXeMayModel.BaoCaoSoLuongDon_Result">
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="SoLuongDon" ColumnName="SoLuongDon" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="DonHang">
+            <EntityTypeMapping TypeName="BanXeMayModel.DonHang">
+              <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="idHinhThucThanhToan" ColumnName="idHinhThucThanhToan" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="DiaChiGiao" ColumnName="DiaChiGiao" />
+                <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="TrangThaiGiaoHang" ColumnName="TrangThaiGiaoHang" />
+                <ScalarProperty Name="DaThanhToan" ColumnName="DaThanhToan" />
+                <ScalarProperty Name="idTaiKhoan" ColumnName="idTaiKhoan" />
+                <ScalarProperty Name="ID_DonHang" ColumnName="ID_DonHang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SanPham">
             <EntityTypeMapping TypeName="BanXeMayModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
@@ -825,6 +837,16 @@
                 <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
                 <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SanPham_DatHang">
+            <EntityTypeMapping TypeName="BanXeMayModel.SanPham_DatHang">
+              <MappingFragment StoreEntitySet="SanPham_DatHang">
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
+                <ScalarProperty Name="idDonHang" ColumnName="idDonHang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

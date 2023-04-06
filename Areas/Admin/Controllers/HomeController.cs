@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ShopXeMay.Areas.Admin.Controllers
 {
+    //[AdminAuthorize(idPhanQuyen = 1)]
     public class HomeController : Controller
     {
         // GET: Admin/Home

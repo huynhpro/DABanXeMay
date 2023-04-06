@@ -8,11 +8,11 @@
 
 <a style="margin-left:10px;" class="btn btn-primary" href="~/Admin/LoaiSPs/create">Thêm Loại Xe</a>
 <table class="table">
-    <tr>
-        <th>
+    <tr style="text-align:center">
+        <th >
             @Html.DisplayNameFor(model => model.TenLoai)
         </th>
-        <th></th>
+        <th style="text-align:center"></th>
     </tr>
 
     @foreach (var item in Model)
@@ -23,7 +23,6 @@
             </td>
             <td>
                 <a class="btn btn-sm btn-success" href="~/Admin/LoaiSPs/Edit?id=@item.Id">Cập Nhật</a>
-                <a class="btn btn-sm btn-info" href="~/Admin/LoaiSPs/Details?id=@item.Id">Chi Tiết</a>
                 <a class="btn btn-sm btn-danger" href="~/Admin/LoaiSPs/Delete?id=@item.Id">Xóa</a>
             </td>
         </tr>
